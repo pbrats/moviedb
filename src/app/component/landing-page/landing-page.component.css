@@ -30,3 +30,30 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #198754;
   }
+  /* .first-element {
+    position: relative; 
+    background-image: url('/../assets/images/c.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 350px;
+}
+
+.first-element::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(78, 85, 74, 0.8);
+    z-index: 0; 
+}
+
+.first-element h1,
+.first-element h2,
+.first-element .search input,
+.first-element .search button {
+    position: relative;
+    z-index: 1; 
+    opacity: 1; 
+} */
