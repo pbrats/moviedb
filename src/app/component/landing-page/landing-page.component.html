@@ -1,0 +1,88 @@
+<div class="container">
+    <div class="my-5">
+        @if(genres){
+        <!-- genres: {{genres}} -->
+        <!-- {{genres.genres}} -->
+        <!-- <div *ngFor="let genre of genres.genres">
+<ol>
+    <li>
+       
+        id: {{ genre.id}}
+        name: {{genre.name}}
+    </li>
+</ol>
+</div>
+} -->
+        <h4 class="text-success">Genres</h4>
+        <div class="card-group card-group-scroll">
+            @for (genre of genres.genres; track $index){
+            <div class="card border border-success rounded rounded-3" title="click for details">
+                <div class="card-body text-center shadow">
+                    <h5 class="card-title fw-bold text-success">{{genre.name}}</h5>
+                    <p>id: {{ genre.id}}</p>
+                </div>
+            </div>
+            }
+        </div>
+        }
+        <!-- @if(genreMovies){
+{{genreMovies.results.length}}
+} -->
+    </div>
+    <div class="my-5">
+        @if(nowMovies){
+        <div style="display: flex; flex-direction: row; justify-content:space-between;">
+            <div>
+                <h4 class="text-success">Now playing</h4>
+            </div>
+            <div>
+                <form [formGroup]="selectForm">
+                    <select class="form-select" aria-label="selectedRegion" formControlName="selectedRegion"
+                        id="selectedRegion" (change)="onSelection($event)">
+                        <option disabled>Select region</option>
+                        <option value="gr" selected>Greece</option>
+                        <option value="gb">United Kingdom</option>
+                        <option value="de">Germany</option>
+                        <option value="us">USA</option>
+                        <option value="">Globally</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+        <h6><span class="text-success fw-bold">{{nowMovies.total_results}}</span> movies playing from: <span class="text-success fst-italic">{{nowMovies.dates.minimum}}</span> to <span class="text-success fst-italic">{{nowMovies.dates.maximum}}</span>
+        </h6>
+        <div class="my-1" style="display:flex;flex-direction: row; justify-content:flex-end;">
+        <button class="btn btn-sm btn-outline-success" (click)="showAll(selectForm.get('selectedRegion')?.value)">
+            Show All</button>
+        </div>
+        <!-- routerLink="/now-playing" routerLinkActive="active" -->
+        <!-- <div *ngFor="let nowMovie of nowMovies.results">
+    <ol>
+        <li>
+            id: {{ nowMovie.id}}
+            name: {{nowMovie.original_title}}
+        </li>
+    </ol>
+</div> -->
+        <!-- {{nowMovies.results}} -->
+
+        <div class="card-group card-group-scroll">
+            @for (nowMovie of nowMovies.results; track $index){
+            <div class="card border border-success rounded rounded-3 m-2" title="click for details" style="max-width:fit-content">
+                <div class="card-body text-center shadow" style="width:max-content">
+                    <img [src]='"https://image.tmdb.org/t/p/w300"+(nowMovie.poster_path)'
+                        onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
+                        alt="{{ nowMovie.title }} poster path" placeholder style="height:300px ; width:fit-content">
+                    <!-- <h5 class="card-title fw-bold text-success">{{nowMovie.original_title}}</h5> -->
+                        <h5 class="card-title text-success fw-bold" style="width:250px">{{nowMovie.title }}</h5>
+                    <p class="card-text "><span class="text-success">Average vote :</span>{{nowMovie.vote_average}}</p>
+                    <!-- <p>id: {{ nowMovie.id}}</p> -->
+                    <!-- <button class="btn btn-sm col-sm-12 btn-success" type="button" (click)="onMovieClick(movie.id)">{{
+                movie.title }}</button> -->
+                </div>
+            </div>
+            }
+        </div>
+        }
+    </div>
+</div>
