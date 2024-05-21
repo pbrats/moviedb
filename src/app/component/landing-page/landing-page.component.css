@@ -82,6 +82,12 @@
     font-weight: 800;
 } 
 
-.errors span{
+.errors p{
   background-color: #4e4e4e;
+}
+.outline{
+  border-style: solid;
+  border-radius: 30px;
+  border-width: 2px;
+  border-color: #606163;
 }

@@ -12,7 +12,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
   styleUrl: './landing-page.component.css'
 })
 export class LandingPageComponent {
-  genres:any;
+  genres: any;
   hasLoadedGenres: boolean = false;
   // hasLoadedGenresMovies: boolean = false;
   hasLoadedNowMovies: boolean = false;
@@ -22,8 +22,14 @@ export class LandingPageComponent {
   region: string = 'gr';
   selectForm!: FormGroup;
   searchForm!: FormGroup;
+  timeForm!: FormGroup;
+  time: string = 'day';
   searchQuery: string = '';
-  constructor(private router: Router, private movieService: MoviesService, private formBuilder: FormBuilder){}
+  hasLoadedTrending: boolean = false;
+  trending: any;
+  buttonDay: boolean = true;
+  buttonWeek: boolean = false;
+  constructor(private router: Router, private movieService: MoviesService, private formBuilder: FormBuilder) { }
   ngOnInit() {
     this.setFormValues();
     this.movieService.getGenres().subscribe({
@@ -32,54 +38,89 @@ export class LandingPageComponent {
           this.genres = genres;
           this.hasLoadedGenres = true;
         }, 0);
+      }
+    });
+    // this.movieService.getMoviesByGenres(this.genrequery).subscribe({
+    //   next: genreMovies => {
+    //     setTimeout(() => {
+    //       this.genreMovies = genreMovies;
+    //       this.hasLoadedGenresMovies = true;
+    //       console.log(genreMovies);
+    //     }, 0);
+    // }
+    // });
+    this.loadNowMovies(this.region, 1);
+    this.loadTrending(this.time, 1);
+    this.selectForm = this.formBuilder.group({
+      selectedRegion: ['gr']
+    });
+    this.timeForm = this.formBuilder.group({
+      time: ['day']
+    });
   }
-});
-// this.movieService.getMoviesByGenres(this.genrequery).subscribe({
-//   next: genreMovies => {
-//     setTimeout(() => {
-//       this.genreMovies = genreMovies;
-//       this.hasLoadedGenresMovies = true;
-//       console.log(genreMovies);
-//     }, 0);
-// }
-// });
-this.loadNowMovies(this.region,1);
-this.selectForm = this.formBuilder.group({
-  selectedRegion: ['gr']
-});
-}
-setFormValues() {
-  this.searchForm = new FormGroup({
-    searchData: new FormControl("", [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*'), Validators.minLength(3)])
-  });
-}
-onSubmit() {
-  console.log("input value:", this.searchForm.get("searchData")?.value);
-  this.searchQuery = this.searchForm.get("searchData")?.value;
-  console.log("search query:", this.searchQuery);
-  this.router.navigate(['/search'], { queryParams: { query: this.searchQuery } });
-}
-loadNowMovies(region:string, page:number){
-  this.movieService.getNowMovies(region,page).subscribe({
-    next: nowMovies => {
-      setTimeout(() => {
-        this.nowMovies = nowMovies;
-        this.hasLoadedNowMovies = true;
-        console.log(nowMovies);
-      }, 0);
+  setFormValues() {
+    this.searchForm = new FormGroup({
+      searchData: new FormControl("", [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*'), Validators.minLength(3)])
+    });
   }
-  });
-}
-onSelection(event: any) {
-  console.log('Selected value :', event.target.value);
-  this.region=event.target.value;
-  console.log(typeof(this.region));
-  this.loadNowMovies(this.region,1);
-  
-}
-showAll(value: any) {
-console.log("region: ",value)
-this.router.navigate(['now-playing'],{ queryParams: { region: value} });
-}
+  onSubmit() {
+    console.log("input value:", this.searchForm.get("searchData")?.value);
+    this.searchQuery = this.searchForm.get("searchData")?.value;
+    console.log("search query:", this.searchQuery);
+    this.router.navigate(['/search'], { queryParams: { query: this.searchQuery } });
+  }
+  loadNowMovies(region: string, page: number) {
+    this.movieService.getNowMovies(region, page).subscribe({
+      next: nowMovies => {
+        setTimeout(() => {
+          this.nowMovies = nowMovies;
+          this.hasLoadedNowMovies = true;
+          console.log(nowMovies);
+        }, 0);
+      }
+    });
+  }
+  loadTrending(time:string, page:number){
+    this.movieService.getTrending(time, page).subscribe({
+      next: trending => {
+        setTimeout(() => {
+          this.trending = trending;
+          this.hasLoadedTrending = true;
+          console.log(trending);
+        }, 0);
+      }
+    });
+  }
+  onSelection(event: any) {
+    console.log('Selected value :', event.target.value);
+    this.region = event.target.value;
+    console.log(typeof (this.region));
+    this.loadNowMovies(this.region, 1);
 
+  }
+  showAll(value: any) {
+    console.log("region: ", value)
+    this.router.navigate(['now-playing'], { queryParams: { region: value } });
+  }
+  showTrending(value: any){
+    console.log("time: ", value)
+    this.router.navigate(['trending'], { queryParams: { time: value } });
+  }
+  onClickTime(buttonName: string) {
+    this.timeForm.patchValue({
+      time: buttonName
+    });
+    console.log("selected time :", buttonName);
+    this.time = buttonName;
+    if (buttonName == "day") {
+      console.log("button day");
+      this.buttonDay= true;
+      this.buttonWeek = false;
+    } else if (buttonName == "week") {
+      console.log("button week");
+      this.buttonWeek = true;
+      this.buttonDay = false;
+    } 
+    this.loadTrending(this.time, 1);
+  }
 }

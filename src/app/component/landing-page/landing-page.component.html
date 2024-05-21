@@ -17,19 +17,26 @@
             <div class="errors mb-5 mt-2" style="display: flex; flex-direction: row; justify-content:center;">
                 <!-- error message when the input isn't alphanumeric -->
                 @if(searchForm.get('searchData')?.hasError('pattern') && searchForm.get('searchData')?.touched){
-                    <span class="text-danger fst-italic me-1">Input must be </span><span
-                        class="text-danger fw-bold me-5">alphanumeric.
-                    </span>
+                <p class="px-2">
+                    <span class="text-danger fst-italic me-1">Input must be </span>
+                    <span class="text-danger fw-bold">alphanumeric.</span>
+                </p>
                 }
                 <!-- error message when the input is clicked but value isn't typed -->
                 @if(searchForm.get('searchData')?.hasError('required') && searchForm.get('searchData')?.touched){
-                    <span class="text-danger fst-italic me-1">Input is </span><span class="text-danger fw-bold">required.</span>
+                <p class="px-2">
+                    <span class="text-danger fst-italic me-1">Input is </span>
+                    <span class="text-danger fw-bold">required.</span>
+                </p>
                 }
                 <!-- error message when the input is less than 3 characters -->
                 @if(searchForm.get('searchData')?.hasError('minlength') && searchForm.get('searchData')?.touched){
-                    <span class="text-danger fst-italic me-1">Input must be </span><span
-                        class="text-danger fw-bold me-1">minimum {{
-                        searchForm.get('searchData')?.errors?.['minlength'].requiredLength }} characters.</span>
+                <p class="px-2">
+                    <span class="text-danger fst-italic me-1">Input must be </span>
+                    <span class="text-danger fw-bold me-1">
+                        minimum {{searchForm.get('searchData')?.errors?.['minlength'].requiredLength }} characters.
+                    </span>
+                </p>
                 }
             </div>
         </div>
@@ -51,7 +58,8 @@
         <h4 class="text-success">Genres</h4>
         <div class="card-group card-group-scroll">
             @for (genre of genres.genres; track $index){
-            <div class="card border border-success rounded rounded-3 m-2" title="click for details" style="max-width: 180px">
+            <div class="card border border-success rounded rounded-3 m-2" title="click for details"
+                style="max-width: 180px">
                 <div class="card-body text-center shadow">
                     <h5 class="card-title fw-bold text-success">{{genre.name}}</h5>
                     <!-- <p>id: {{ genre.id}}</p> -->
@@ -69,7 +77,7 @@
         @if(nowMovies){
         <div style="display: flex; flex-direction: row; justify-content:space-between;">
             <div>
-                <h4 class="text-success">Now playing</h4>
+                <h2 class="text-success">Now playing</h2>
             </div>
             <div>
                 <form [formGroup]="selectForm">
@@ -85,11 +93,14 @@
                 </form>
             </div>
         </div>
-        <h6><span class="text-success fw-bold">{{nowMovies.total_results}}</span> movies playing from: <span class="text-success fst-italic">{{nowMovies.dates.minimum}}</span> to <span class="text-success fst-italic">{{nowMovies.dates.maximum}}</span>
+        <h6>
+            <span class="text-success fw-bold">{{nowMovies.total_results}}</span> movies playing from: <span
+                class="text-success fst-italic">{{nowMovies.dates.minimum}}</span> to <span
+                class="text-success fst-italic">{{nowMovies.dates.maximum}}</span>
         </h6>
         <div class="my-1" style="display:flex;flex-direction: row; justify-content:flex-end;">
-        <button class="btn btn-sm btn-outline-success" (click)="showAll(selectForm.get('selectedRegion')?.value)">
-            Show All</button>
+            <button class="btn btn-sm btn-outline-success" (click)="showAll(selectForm.get('selectedRegion')?.value)">
+                Show All</button>
         </div>
         <!-- routerLink="/now-playing" routerLinkActive="active" -->
         <!-- <div *ngFor="let nowMovie of nowMovies.results">
@@ -101,16 +112,16 @@
     </ol>
 </div> -->
         <!-- {{nowMovies.results}} -->
-
         <div class="card-group card-group-scroll">
             @for (nowMovie of nowMovies.results; track $index){
-            <div class="card border border-success rounded rounded-3 m-2" title="click for details" style="max-width:fit-content">
+            <div class="card border border-success rounded rounded-3 m-2" title="click for details"
+                style="max-width:fit-content">
                 <div class="card-body text-center shadow" style="width:max-content">
                     <img [src]='"https://image.tmdb.org/t/p/w300"+(nowMovie.poster_path)'
                         onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
                         alt="{{ nowMovie.title }} poster path" placeholder style="height:300px ; width:fit-content">
                     <!-- <h5 class="card-title fw-bold text-success">{{nowMovie.original_title}}</h5> -->
-                        <h5 class="card-title text-success fw-bold" style="width:250px">{{nowMovie.title }}</h5>
+                    <h5 class="card-title text-success fw-bold" style="width:250px">{{nowMovie.title }}</h5>
                     <p class="card-text "><span class="text-success">Average vote :</span>{{nowMovie.vote_average}}</p>
                     <!-- <p>id: {{ nowMovie.id}}</p> -->
                     <!-- <button class="btn btn-sm col-sm-12 btn-success" type="button" (click)="onMovieClick(movie.id)">{{
@@ -120,7 +131,7 @@
             }
         </div>
         }
-    }@else{
+        }@else{
         <div class="pt-5 m-5">
             <h1 class="text-success text-center fs-3 fst-italic fw-normal">Loading Results ..</h1>
             <br>
@@ -130,7 +141,66 @@
                 </div>
             </div>
         </div>
-    }
+        }
+    </div>
+    <div class="my-5">
+        @if(hasLoadedTrending){
+        @if(trending){
+        <div style="display: flex; flex-direction: row; justify-content:center;">
+            <div class="me-auto">
+                <h2 class="text-success">Trending</h2>
+            </div>
+            <div class="mb-4">
+                <form [formGroup]="timeForm">
+                    <div class="form-group">
+                        <div class="outline" style="display: flex; flex-direction: row; justify-content:flex-end;">
+                            <button type="button" class="form-control btn btn-sm {{buttonDay ? 'btn-outline-secondary' : ''}} rounded rounded-5"
+                                [class.active]="buttonDay" (click)="onClickTime('day')" name="time" id="time">
+                                Today
+                            </button>
+                            <button type="button" class="form-control btn btn-sm {{buttonWeek ? 'btn-outline-secondary' : ''}} rounded rounded-5"
+                                [class.active]="buttonWeek" (click)="onClickTime('week')" name="time" id="time">
+                                This Week
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="my-1" style="display:flex;flex-direction: row; justify-content:flex-end;">
+            <button class="btn btn-sm btn-outline-success" (click)="showTrending(timeForm.get('time')?.value)">
+                Show All</button>
+        </div>
+        <div class="card-group card-group-scroll">
+            @for (trend of trending.results; track $index){
+            <div class="card border border-success rounded rounded-3 m-2" title="click for details"
+                style="max-width:fit-content">
+                <div class="card-body text-center shadow" style="width:max-content">
+                    <img [src]='"https://image.tmdb.org/t/p/w300"+(trend.poster_path)'
+                        onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
+                        alt="{{ trend.title }} poster path" placeholder style="height:300px ; width:fit-content">
+                    <!-- <h5 class="card-title fw-bold text-success">{{nowMovie.original_title}}</h5> -->
+                    <h5 class="card-title text-success fw-bold" style="width:250px">{{trend.title }}</h5>
+                    <p class="card-text "><span class="text-success">Average vote :</span>{{trend.vote_average}}</p>
+                    <!-- <p>id: {{ nowMovie.id}}</p> -->
+                    <!-- <button class="btn btn-sm col-sm-12 btn-success" type="button" (click)="onMovieClick(movie.id)">{{
+                        movie.title }}</button> -->
+                </div>
+            </div>
+            }
+        </div>
+        }
+        }@else{
+        <div class="pt-5 m-5">
+            <h1 class="text-success text-center fs-3 fst-italic fw-normal">Loading Results ..</h1>
+            <br>
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-success align-center" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden ">Loading...</span>
+                </div>
+            </div>
+        </div>
+        }
     </div>
 </div>
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
