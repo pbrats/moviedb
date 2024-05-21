@@ -4,3 +4,21 @@
     border-width: 2px;
     border-color: #606163;
   }
+  .pagination .page-item.active .page-link {
+    background-color: #198754;
+    border-color: #198754;
+    color: white;
+    text-underline-offset: 5px;
+}
+
+.pagination .page-item .page-link {
+    color: #198754;
+    text-decoration: underline;
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: lightgray;
+    border-color: lightgrey;
+    color: gray;
+    text-decoration: none;
+}

@@ -12,7 +12,6 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
   styleUrl: './now-playing.component.css'
 })
 export class NowPlayingComponent {
-
   hasLoadedNowMovies: boolean = false;
   nowMovies: any;
   region!: string;

@@ -5,7 +5,7 @@
         <h2 class="mx-5">Millions of movies to discover. Explore now.</h2>
         <div class="search mx-5">
             <!-- <h1 class="mt-3 text-center text-success">Search movies:</h1> -->
-            <form [formGroup]="searchForm" (submit)="onSubmit()" class="mt-5 text-center d-flex">
+            <form [formGroup]="searchForm" (submit)="onSubmit()" class="searchForm mt-5 text-center d-flex">
                 <input formControlName="searchData" id="search" type="search" class="form-control rounded rounded-4"
                     placeholder="Search Movie" aria-label="Search">
                 <button type="submit" class="btn btn-dark rounded rounded-5 ms-2" [disabled]="!searchForm.valid">

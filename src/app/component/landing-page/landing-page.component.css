@@ -91,3 +91,16 @@
   border-width: 2px;
   border-color: #606163;
 }
+.searchForm  .ng-pristine:not(form) {
+  border-left: 6px solid grey;
+}
+
+.searchForm  .ng-touched:not(form),
+.searchForm  .ng-valid:not(form) {
+  border-left: 6px solid #a94442;
+}
+
+.searchForm  ng-valid,
+.searchForm  .ng-valid:not(form) {
+  border-left: 6px solid #42A948;
+}
