@@ -30,30 +30,56 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #198754;
   }
-  /* .first-element {
-    position: relative; 
+ 
+.background-container {
+  position: absolute;
+  top: 10vh;
+  left: 0vh;
+  right: 0vh;
+  height: 60vh;
+  /* background-image: url('/../assets/images/c.jpg'); */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5;
+  z-index: -1;
+  animation: backgroundAnimation 15s infinite;
+}
+
+@keyframes backgroundAnimation {
+  0% {
     background-image: url('/../assets/images/c.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 350px;
+  }
+  25% {
+    background-image: url('/../assets/images/c.jpg');
+  }
+  25.01% {
+    background-image: url('/../assets/images/2.jpeg');
+  }
+  50% {
+    background-image: url('/../assets/images/2.jpeg');
+  }
+  50.01% {
+    background-image: url('/../assets/images/b.jpg');
+  }
+  75% {
+    background-image: url('/../assets/images/b.jpg');
+  }
+  75.01% {
+    background-image: url('/../assets/images/1.jpeg');
+  }
+  100% {
+    background-image: url('/../assets/images/1.jpeg');
+  }
 }
 
-.first-element::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(78, 85, 74, 0.8);
-    z-index: 0; 
+.first-element {
+  position: relative;
+  height: 60vh;
+  z-index: 1;
 }
-
 .first-element h1,
 .first-element h2,
 .first-element .search input,
 .first-element .search button {
-    position: relative;
-    z-index: 1; 
-    opacity: 1; 
-} */
+    font-weight: 800;
+} 
