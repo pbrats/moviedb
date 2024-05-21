@@ -104,3 +104,16 @@
 .searchForm  .ng-valid:not(form) {
   border-left: 6px solid #42A948;
 }
+.card{
+  cursor:pointer;
+  scale:0.95;
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+.card:hover {
+  transform: scale(1.07);
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+}
+.card-group:hover .card:not(:hover) {
+  opacity: 0.8;
+}
