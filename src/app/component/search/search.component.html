@@ -43,7 +43,7 @@
                                 <button type="submit" class="btn btn-success btn-sm ms-4" data-bs-toggle="modal" data-bs-target="#collectionsMultiple" [disabled]=collectionsForm.invalid> Add to collection</button>
                                 <!-- <app-multiple-ids-popup [idArray]="selectedMoviesId" /> -->
                             </div>
-                            <div class="row">
+                            <div class="row card-container">
                             <div class="col-3 m-3 mx-auto text-center" *ngFor="let movie of searchMovies.results">
                                 <div class="card h-100">
                                     <div (click)="moviePage(movie.id)" title="click for details">
