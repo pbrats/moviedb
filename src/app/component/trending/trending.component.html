@@ -1,4 +1,5 @@
 <div class="container">
+    @if(hasLoadedTrending){
     @if(trending){
     <div class="m-5">
         <div style="display: flex; flex-direction: row; justify-content:space-between;">
@@ -64,6 +65,17 @@
                     </li>
                 </ul>
             </nav>
+        </div>
+    </div>
+    }
+}@else{
+    <div class="py-5 m-5">
+        <h1 class="text-success text-center fs-3 fst-italic fw-normal">Loading Results ..</h1>
+        <br>
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-success align-center" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden ">Loading...</span>
+            </div>
         </div>
     </div>
     }

@@ -42,19 +42,8 @@
         </div>
     </div>
     <div class="mb-5">
+        @if(hasLoadedGenres){
         @if(genres){
-        <!-- genres: {{genres}} -->
-        <!-- {{genres.genres}} -->
-        <!-- <div *ngFor="let genre of genres.genres">
-<ol>
-    <li>
-       
-        id: {{ genre.id}}
-        name: {{genre.name}}
-    </li>
-</ol>
-</div>
-} -->
         <h4 class="text-success">Genres</h4>
         <div class="card-group card-group-scroll">
             @for (genre of genres.genres; track $index){
@@ -62,15 +51,22 @@
                 style="max-width: 180px">
                 <div class="card-body text-center shadow">
                     <h5 class="card-title fw-bold text-success">{{genre.name}}</h5>
-                    <!-- <p>id: {{ genre.id}}</p> -->
                 </div>
             </div>
             }
         </div>
         }
-        <!-- @if(genreMovies){
-{{genreMovies.results.length}}
-} -->
+    }@else{
+        <div class="m-5">
+            <h1 class="text-success text-center fs-3 fst-italic fw-normal">Loading Results ..</h1>
+            <br>
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-success align-center" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden ">Loading...</span>
+                </div>
+            </div>
+        </div>
+        }
     </div>
     <div class="my-5">
         @if(hasLoadedNowMovies){
@@ -102,16 +98,6 @@
             <button class="btn btn-sm btn-outline-success" (click)="showAll(selectForm.get('selectedRegion')?.value)">
                 Show All</button>
         </div>
-        <!-- routerLink="/now-playing" routerLinkActive="active" -->
-        <!-- <div *ngFor="let nowMovie of nowMovies.results">
-    <ol>
-        <li>
-            id: {{ nowMovie.id}}
-            name: {{nowMovie.original_title}}
-        </li>
-    </ol>
-</div> -->
-        <!-- {{nowMovies.results}} -->
         <div class="card-group card-group-scroll">
             @for (nowMovie of nowMovies.results; track $index){
             <div class="card border border-success rounded rounded-3 m-2" title="click for details"
