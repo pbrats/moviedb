@@ -46,10 +46,10 @@
                             <div class="row card-container">
                             <div class="col-3 m-3 mx-auto text-center" *ngFor="let movie of searchMovies.results">
                                 <div class="card h-100">
-                                    <div (click)="moviePage(movie.id)" title="click for details">
+                                    <div>
                                         <img [src]='"https://image.tmdb.org/t/p/w300"+(movie.poster_path)'
                                             onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
-                                            alt="{{ movie.title }} poster path" placeholder>
+                                            alt="{{ movie.title }} poster path" placeholder (click)="moviePage(movie.id)" title="click for details">
                                     </div>
                                     <div class="form-check m-2" style="display: flex; flex-direction: row; justify-content:flex-end;">
                                         <input class="form-check-input" formControlName="movieChecked" type="checkbox" [value]="movie.id" id="movieChecked-{{movie.id}}" (change)="onChange($event)">

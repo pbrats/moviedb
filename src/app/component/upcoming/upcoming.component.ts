@@ -101,4 +101,8 @@ export class UpcomingComponent {
     }
     return pagesArray;
   }
+  moviePage(id: number) {
+    console.log('details id:', id);
+    this.router.navigate(['movies', id]);
+  }
 }

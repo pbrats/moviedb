@@ -3,6 +3,7 @@ import { MoviesService } from '../../service/movies.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SessionService } from '../../service/session.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -34,8 +35,26 @@ export class LandingPageComponent {
   hasLoadedUpcoming: boolean= false;
   upcoming: any;
   region2: string = 'gr';
-  constructor(private router: Router, private movieService: MoviesService, private formBuilder: FormBuilder) { }
+  sessionInfos: any;
+  sessionId: string = '';
+  constructor(private router: Router, private movieService: MoviesService, private formBuilder: FormBuilder,  private sesService: SessionService) { }
   ngOnInit() {
+    const hasRated = sessionStorage.getItem('hasRated');
+    console.log('hasRated', hasRated);
+    if (hasRated !== null) {
+      const infos = sessionStorage.getItem('SessionInfos');
+      if (infos !== null) {
+        this.sessionInfos = JSON.parse(infos);
+        console.log("this.sessionInfos precreated:", this.sessionInfos);
+      }
+    } else {
+      this.sesService.getSessionId().subscribe((data) => {
+        this.sessionInfos = data;
+        console.log("this.sessionInfos:", this.sessionInfos);
+        sessionStorage.setItem('SessionInfos', JSON.stringify(this.sessionInfos));
+      });
+      sessionStorage.setItem('hasRated', 'no');
+    }
     this.setFormValues();
     this.movieService.getGenres().subscribe({
       next: genres => {
@@ -70,6 +89,11 @@ export class LandingPageComponent {
     this.searchQuery = this.searchForm.get("searchData")?.value;
     console.log("search query:", this.searchQuery);
     this.router.navigate(['/search'], { queryParams: { query: this.searchQuery } });
+    console.log("session info on submit :", this.sessionInfos);
+    this.sessionId = this.sessionInfos.guest_session_id;
+    console.log("sessionId:", this.sessionId);
+    // save to session storage ths session Id 
+    sessionStorage.setItem('SessionId', JSON.stringify(this.sessionId));
   }
   loadNowMovies(region: string, page: number) {
     this.movieService.getNowMovies(region, page).subscribe({
@@ -169,5 +193,9 @@ export class LandingPageComponent {
   }
   getGenreMovies(name:string, id: number){
     this.router.navigate(["genres", name], { queryParams: { genre: id } } );
+  }
+  moviePage(id: number) {
+    console.log('details id:', id);
+    this.router.navigate(['movies', id]);
   }
 }

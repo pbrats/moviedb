@@ -33,7 +33,7 @@
                     <div>
                         <img [src]='"https://image.tmdb.org/t/p/w300"+(trend.poster_path)'
                             onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
-                            alt="{{ trend.title }} poster path" placeholder>
+                            alt="{{ trend.title }} poster path" placeholder (click)="moviePage(trend.id)" title="click for details">
                     </div>
                     <div class="card-body"
                         style="display: flex; flex-direction: column; justify-content:space-between;">

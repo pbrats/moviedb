@@ -7,6 +7,7 @@ import { GenresComponent } from './component/genres/genres.component';
 import { PopularComponent } from './component/popular/popular.component';
 import { TopRatedComponent } from './component/top-rated/top-rated.component';
 import { UpcomingComponent } from './component/upcoming/upcoming.component';
+import { MovieIdComponent } from './component/movie-id/movie-id.component';
 
 export const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full" },
@@ -17,5 +18,6 @@ export const routes: Routes = [
     { path: "popular", component: PopularComponent},
     { path: "top-rated", component: TopRatedComponent},
     { path: "upcoming", component: UpcomingComponent},
-    { path: "genres/:name", component: GenresComponent }
+    { path: "genres/:name", component: GenresComponent },
+    { path: "movies/:id", component: MovieIdComponent },
 ];

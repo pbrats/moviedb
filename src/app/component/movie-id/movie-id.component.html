@@ -1,0 +1,59 @@
+@if(movieDetails){
+    @if(hasLoadedmovie){
+        <div class="container">
+            <!-- <h1>id:{{idSelected}}</h1>
+                            <h1>id2:{{movieDetails.id}}</h1> -->
+            <h1 class="text-center text-success m-5">{{ movieDetails.original_title }}</h1>
+            <div class="text-center m-5">
+                <img [src]='"https://image.tmdb.org/t/p/w300"+(movieDetails.poster_path)'
+                    onerror="this.src='../assets/images/no-poster.png';" class="img-top"
+                    alt="{{ movieDetails.original_title }} poster path" style="width: 300px; height: 100%" placeholder>
+            </div>
+            <div class="text-center m-5">
+                <p class="mx-auto col-sm-8"><span class="fst-italic fw-bold text-success">Overview: </span>{{
+                    movieDetails.overview }}</p>
+                <p><span class="fst-italic fw-bold text-success">Release date: </span>{{ movieDetails.release_date }}</p>
+                <p><span class="fst-italic fw-bold text-success">Budget:</span> {{ movieDetails.budget | number:'1.2-2' }} $</p>
+                <p><span class="fst-italic fw-bold text-success">Revenue:</span> {{ movieDetails.revenue | number:'1.2-2'}} $
+                </p>
+                <p><span class="fst-italic fw-bold text-success">Average vote:</span> {{ movieDetails.vote_average }}</p>
+                <p><span class="fst-italic fw-bold text-success">Vote count: </span>{{ movieDetails.vote_count }}</p>
+                <div>
+                    <span class="fst-italic fw-bold text-success">Spoken languages:</span>
+                    <ul class="mx-auto col-sm-1" *ngFor="let lang of movieDetails.spoken_languages">
+                        <li> {{ lang.name }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container rating">
+            <form [formGroup]="ratingForm" (submit)="onSubmit()" class="d-flex mx-auto col-sm-8">
+                <label for="rating" class="form-label fw-bold fs-5 fst-italic text-success col-sm-3 me-3">Rate this movie:
+                </label>
+                <input type="range" formControlName="rating" class="form-range mx-2" min="0.5" max="10" step="0.5" id="rating">
+                @if(ratingForm.get('rating')?.value){
+                    <p class="badge bg-secondary"> {{ ratingForm.get('rating')?.value }} </p>
+                }
+                <button type="submit" class="btn btn-success ms-4 col-sm-2" [disabled]=ratingForm.invalid> Submit rate</button>
+            </form>
+            @if(showSuccessMessage){
+                <div class="alert alert-success alert-dismissible my-3 mx-auto" role="alert" style="width:fit-content">
+                    <h4 class="text-success">{{response.status_message}}</h4>
+                    <div><i class="bi bi-check-circle-fill mx-2"></i>Your rating was successfully submitted!</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+        </div>
+        }
+    @else{
+        <div class="my-5">
+            <h1 class="text-success text-center fs-3 fst-italic fw-normal">Loading Results ..</h1>
+            <br>
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-success align-center" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden ">Loading...</span>
+                </div>
+            </div>
+        </div>
+    }
+}

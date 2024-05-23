@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container pb-2">
     <div class="background-container"></div>
     <div class="first-element">
         <h1 class="mx-5 mt-5 pt-5">Welcome.</h1>
@@ -105,7 +105,7 @@
                 <div class="card-body text-center shadow" style="width:max-content">
                     <img [src]='"https://image.tmdb.org/t/p/w300"+(nowMovie.poster_path)'
                         onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
-                        alt="{{ nowMovie.title }} poster path" placeholder style="height:300px ; width:fit-content">
+                        alt="{{ nowMovie.title }} poster path" placeholder style="height:300px ; width:fit-content" (click)="moviePage(nowMovie.id)" title="click for details">
                     <!-- <h5 class="card-title fw-bold text-success">{{nowMovie.original_title}}</h5> -->
                     <h5 class="card-title text-success fw-bold" style="width:250px">{{nowMovie.title }}</h5>
                     <p class="card-text "><span class="text-success">Average vote :</span>{{nowMovie.vote_average}}</p>
@@ -144,7 +144,7 @@
                 <div class="card-body text-center shadow" style="width:max-content">
                     <img [src]='"https://image.tmdb.org/t/p/w300"+(movie.poster_path)'
                         onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
-                        alt="{{ movie.title }} poster path" placeholder style="height:300px ; width:fit-content">
+                        alt="{{ movie.title }} poster path" placeholder style="height:300px ; width:fit-content" (click)="moviePage(movie.id)" title="click for details">
                     <!-- <h5 class="card-title fw-bold text-success">{{nowMovie.original_title}}</h5> -->
                     <h5 class="card-title text-success fw-bold" style="width:250px">{{movie.title }}</h5>
                     <p class="card-text "><span class="text-success">Average vote :</span>{{movie.vote_average}}</p>
@@ -206,7 +206,7 @@
                 <div class="card-body text-center shadow" style="width:max-content">
                     <img [src]='"https://image.tmdb.org/t/p/w300"+(trend.poster_path)'
                         onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
-                        alt="{{ trend.title }} poster path" placeholder style="height:300px ; width:fit-content">
+                        alt="{{ trend.title }} poster path" placeholder style="height:300px ; width:fit-content" (click)="moviePage(trend.id)" title="click for details">
                     <!-- <h5 class="card-title fw-bold text-success">{{nowMovie.original_title}}</h5> -->
                     <h5 class="card-title text-success fw-bold" style="width:250px">{{trend.title }}</h5>
                     <p class="card-text "><span class="text-success">Average vote :</span>{{trend.vote_average}}</p>
@@ -245,7 +245,7 @@
                 <div class="card-body text-center shadow" style="width:max-content">
                     <img [src]='"https://image.tmdb.org/t/p/w300"+(movie.poster_path)'
                         onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
-                        alt="{{ movie.title }} poster path" placeholder style="height:300px ; width:fit-content">
+                        alt="{{ movie.title }} poster path" placeholder style="height:300px ; width:fit-content" (click)="moviePage(movie.id)" title="click for details">
                     <!-- <h5 class="card-title fw-bold text-success">{{nowMovie.original_title}}</h5> -->
                     <h5 class="card-title text-success fw-bold" style="width:250px">{{movie.title }}</h5>
                     <p class="card-text "><span class="text-success">Average vote :</span>{{movie.vote_average}}</p>
@@ -306,7 +306,7 @@
                 <div class="card-body text-center shadow" style="width:max-content">
                     <img [src]='"https://image.tmdb.org/t/p/w300"+(movie.poster_path)'
                         onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
-                        alt="{{ movie.title }} poster path" placeholder style="height:300px ; width:fit-content">
+                        alt="{{ movie.title }} poster path" placeholder style="height:300px ; width:fit-content" (click)="moviePage(movie.id)" title="click for details">
                     <!-- <h5 class="card-title fw-bold text-success">{{nowMovie.original_title}}</h5> -->
                     <h5 class="card-title text-success fw-bold" style="width:250px">{{movie.title }}</h5>
                     <p class="card-text "><span class="text-success">Average vote :</span>{{movie.vote_average}}</p>

@@ -38,7 +38,7 @@
                     <div>
                         <img [src]='"https://image.tmdb.org/t/p/w300"+(nowMovie.poster_path)'
                             onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
-                            alt="{{ nowMovie.title }} poster path" placeholder>
+                            alt="{{ nowMovie.title }} poster path" placeholder (click)="moviePage(nowMovie.id)" title="click for details">
                     </div>
                     <div class="card-body"
                         style="display: flex; flex-direction: column; justify-content:space-between;">

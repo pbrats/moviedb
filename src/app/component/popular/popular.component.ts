@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MoviesService } from '../../service/movies.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-popular',
@@ -18,7 +19,7 @@ export class PopularComponent {
   endIndex = 0;
   pageSize = 20; // Number of movies per page default by API
   totalMovies: any;
-  constructor(private movieService: MoviesService) { }
+  constructor(private router: Router, private movieService: MoviesService) { }
   ngOnInit() {
     this.loadPopular(1);
   }
@@ -84,5 +85,9 @@ export class PopularComponent {
       pagesArray.push(this.totalPages);  // to show the last page always
     }
     return pagesArray;
+  }
+  moviePage(id: number) {
+    console.log('details id:', id);
+    this.router.navigate(['movies', id]);
   }
 }
