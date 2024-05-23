@@ -41,14 +41,14 @@
             </div>
         </div>
     </div>
-    <div class="mb-5">
+    <div class="genres mb-5">
         @if(hasLoadedGenres){
         @if(genres){
         <h4 class="text-success">Genres</h4>
         <div class="card-group card-group-scroll">
             @for (genre of genres.genres; track $index){
-            <div class="card border border-success rounded rounded-3 m-2" (click)="getGenreMovies(genre.name,  genre.id)" title="click for details"
-                style="max-width: 180px">
+            <div class="card border border-success rounded rounded-3 m-2"
+                (click)="getGenreMovies(genre.name,  genre.id)" title="click for details" style="max-width: 180px">
                 <div class="card-body text-center shadow">
                     <h5 class="card-title fw-bold text-success">{{genre.name}}</h5>
                 </div>
@@ -56,7 +56,7 @@
             }
         </div>
         }
-    }@else{
+        }@else{
         <div class="m-5">
             <h1 class="text-success text-center fs-3 fst-italic fw-normal">Loading Results ..</h1>
             <br>
@@ -68,7 +68,7 @@
         </div>
         }
     </div>
-    <div class="my-5">
+    <div class="now-playing my-5">
         @if(hasLoadedNowMovies){
         @if(nowMovies){
         <div style="display: flex; flex-direction: row; justify-content:space-between;">
@@ -89,12 +89,12 @@
                 </form>
             </div>
         </div>
+    <div class="ms-5 my-3" style="display: flex; flex-direction:row; justify-content: space-between;">
         <h6>
             <span class="text-success fw-bold">{{nowMovies.total_results}}</span> movies playing from: <span
                 class="text-success fst-italic">{{nowMovies.dates.minimum}}</span> to <span
                 class="text-success fst-italic">{{nowMovies.dates.maximum}}</span>
         </h6>
-        <div class="my-1" style="display:flex;flex-direction: row; justify-content:flex-end;">
             <button class="btn btn-sm btn-outline-success" (click)="showAll(selectForm.get('selectedRegion')?.value)">
                 Show All</button>
         </div>
@@ -118,7 +118,7 @@
         </div>
         }
         }@else{
-        <div class="pt-5 m-5">
+        <div class="py-5 m-5">
             <h1 class="text-success text-center fs-3 fst-italic fw-normal">Loading Results ..</h1>
             <br>
             <div class="d-flex justify-content-center">
@@ -129,22 +129,63 @@
         </div>
         }
     </div>
-    <div class="my-5">
+    <div class="popular my-5">
+        @if(hasLoadedPopular){
+        @if(popular){
+           <div class="mb-3" style="display:flex;flex-direction: row; justify-content:space-between;">
+        <h2 class="text-success">Popular</h2>
+            <button class="btn btn-sm btn-outline-success" routerLink="/popular" routerLinkActive="active">
+                Show All</button>
+        </div>
+        <div class="card-group card-group-scroll">
+            @for (movie of popular.results; track $index){
+            <div class="card border border-success rounded rounded-3 m-2" title="click for details"
+                style="max-width:fit-content">
+                <div class="card-body text-center shadow" style="width:max-content">
+                    <img [src]='"https://image.tmdb.org/t/p/w300"+(movie.poster_path)'
+                        onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
+                        alt="{{ movie.title }} poster path" placeholder style="height:300px ; width:fit-content">
+                    <!-- <h5 class="card-title fw-bold text-success">{{nowMovie.original_title}}</h5> -->
+                    <h5 class="card-title text-success fw-bold" style="width:250px">{{movie.title }}</h5>
+                    <p class="card-text "><span class="text-success">Average vote :</span>{{movie.vote_average}}</p>
+                    <!-- <p>id: {{ nowMovie.id}}</p> -->
+                    <!-- <button class="btn btn-sm col-sm-12 btn-success" type="button" (click)="onMovieClick(movie.id)">{{
+                        movie.title }}</button> -->
+                </div>
+            </div>
+            }
+        </div>
+        }
+        }@else{
+        <div class="py-5 m-5">
+            <h1 class="text-success text-center fs-3 fst-italic fw-normal">Loading Results ..</h1>
+            <br>
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-success align-center" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden ">Loading...</span>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+    <div class="trending my-5">
         @if(hasLoadedTrending){
         @if(trending){
-        <div style="display: flex; flex-direction: row; justify-content:center;">
-            <div class="me-auto">
+        <div class="mb-3" style="display: flex; flex-direction: row; justify-content:space-between;">
+            <div class="me-5">
                 <h2 class="text-success">Trending</h2>
             </div>
-            <div class="mb-4">
+            <div class="me-auto">
                 <form [formGroup]="timeForm">
                     <div class="form-group">
                         <div class="outline" style="display: flex; flex-direction: row; justify-content:flex-end;">
-                            <button type="button" class="form-control btn btn-sm {{buttonDay ? 'btn-outline-secondary' : ''}} rounded rounded-5"
+                            <button type="button"
+                                class="form-control btn btn-sm {{buttonDay ? 'btn-outline-secondary' : ''}} rounded rounded-5"
                                 [class.active]="buttonDay" (click)="onClickTime('day')" name="time" id="time">
                                 Today
                             </button>
-                            <button type="button" class="form-control btn btn-sm {{buttonWeek ? 'btn-outline-secondary' : ''}} rounded rounded-5"
+                            <button type="button"
+                                class="form-control btn btn-sm {{buttonWeek ? 'btn-outline-secondary' : ''}} rounded rounded-5"
                                 [class.active]="buttonWeek" (click)="onClickTime('week')" name="time" id="time">
                                 This Week
                             </button>
@@ -152,10 +193,11 @@
                     </div>
                 </form>
             </div>
-        </div>
+        <!-- </div> -->
         <div class="my-1" style="display:flex;flex-direction: row; justify-content:flex-end;">
             <button class="btn btn-sm btn-outline-success" (click)="showTrending(timeForm.get('time')?.value)">
                 Show All</button>
+        </div>
         </div>
         <div class="card-group card-group-scroll">
             @for (trend of trending.results; track $index){
@@ -177,7 +219,46 @@
         </div>
         }
         }@else{
-        <div class="pt-5 m-5">
+        <div class="py-5 m-5">
+            <h1 class="text-success text-center fs-3 fst-italic fw-normal">Loading Results ..</h1>
+            <br>
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-success align-center" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden ">Loading...</span>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+    <div class="top-rated my-5">
+        @if(hasLoadedTop){
+        @if(top){
+        <div class="mb-3" style="display:flex;flex-direction: row; justify-content:space-between;">
+            <h2 class="text-success">Top Rated</h2>
+            <button class="btn btn-sm btn-outline-success" routerLink="/top-rated" routerLinkActive="active">
+                Show All</button>
+        </div>
+        <div class="card-group card-group-scroll">
+            @for (movie of top.results; track $index){
+            <div class="card border border-success rounded rounded-3 m-2" title="click for details"
+                style="max-width:fit-content">
+                <div class="card-body text-center shadow" style="width:max-content">
+                    <img [src]='"https://image.tmdb.org/t/p/w300"+(movie.poster_path)'
+                        onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
+                        alt="{{ movie.title }} poster path" placeholder style="height:300px ; width:fit-content">
+                    <!-- <h5 class="card-title fw-bold text-success">{{nowMovie.original_title}}</h5> -->
+                    <h5 class="card-title text-success fw-bold" style="width:250px">{{movie.title }}</h5>
+                    <p class="card-text "><span class="text-success">Average vote :</span>{{movie.vote_average}}</p>
+                    <!-- <p>id: {{ nowMovie.id}}</p> -->
+                    <!-- <button class="btn btn-sm col-sm-12 btn-success" type="button" (click)="onMovieClick(movie.id)">{{
+                        movie.title }}</button> -->
+                </div>
+            </div>
+            }
+        </div>
+        }
+        }@else{
+        <div class="py-5 m-5">
             <h1 class="text-success text-center fs-3 fst-italic fw-normal">Loading Results ..</h1>
             <br>
             <div class="d-flex justify-content-center">

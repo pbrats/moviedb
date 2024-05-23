@@ -24,6 +24,10 @@ export class LandingPageComponent {
   searchQuery: string = '';
   hasLoadedTrending: boolean = false;
   trending: any;
+  popular:any;
+  hasLoadedPopular: boolean = false;
+  top: any;
+  hasLoadedTop: boolean = false;
   buttonDay: boolean = true;
   buttonWeek: boolean = false;
   constructor(private router: Router, private movieService: MoviesService, private formBuilder: FormBuilder) { }
@@ -37,6 +41,8 @@ export class LandingPageComponent {
         }, 0);
       }
     });
+    this.loadTop(1);
+    this.loadPopular(1);
     this.loadNowMovies(this.region, 1);
     this.loadTrending(this.time, 1);
     this.selectForm = this.formBuilder.group({
@@ -75,6 +81,28 @@ export class LandingPageComponent {
           this.trending = trending;
           this.hasLoadedTrending = true;
           console.log(trending);
+        }, 0);
+      }
+    });
+  }
+  loadPopular(page:number){
+    this.movieService.getPopular(page).subscribe({
+      next: popular => {
+        setTimeout(() => {
+          this.popular = popular;
+          this.hasLoadedPopular= true;
+          console.log(popular);
+        }, 0);
+      }
+    });
+  }
+  loadTop(page:number){
+    this.movieService.getTop(page).subscribe({
+      next: top => {
+        setTimeout(() => {
+          this.top = top;
+          this.hasLoadedTop= true;
+          console.log(top);
         }, 0);
       }
     });
