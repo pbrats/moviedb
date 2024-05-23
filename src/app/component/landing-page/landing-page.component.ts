@@ -18,6 +18,7 @@ export class LandingPageComponent {
   nowMovies: any;
   region: string = 'gr';
   selectForm!: FormGroup;
+  select2Form!: FormGroup;
   searchForm!: FormGroup;
   timeForm!: FormGroup;
   time: string = 'day';
@@ -30,6 +31,9 @@ export class LandingPageComponent {
   hasLoadedTop: boolean = false;
   buttonDay: boolean = true;
   buttonWeek: boolean = false;
+  hasLoadedUpcoming: boolean= false;
+  upcoming: any;
+  region2: string = 'gr';
   constructor(private router: Router, private movieService: MoviesService, private formBuilder: FormBuilder) { }
   ngOnInit() {
     this.setFormValues();
@@ -44,9 +48,13 @@ export class LandingPageComponent {
     this.loadTop(1);
     this.loadPopular(1);
     this.loadNowMovies(this.region, 1);
+    this.loadUpcoming(this.region2, 1);
     this.loadTrending(this.time, 1);
     this.selectForm = this.formBuilder.group({
       selectedRegion: ['gr']
+    });
+    this.select2Form = this.formBuilder.group({
+      selectedRegion2: ['gr']
     });
     this.timeForm = this.formBuilder.group({
       time: ['day']
@@ -70,6 +78,17 @@ export class LandingPageComponent {
           this.nowMovies = nowMovies;
           this.hasLoadedNowMovies = true;
           console.log(nowMovies);
+        }, 0);
+      }
+    });
+  }
+  loadUpcoming(region: string, page: number) {
+    this.movieService.getUpcoming(region, page).subscribe({
+      next: upcoming => {
+        setTimeout(() => {
+          this.upcoming = upcoming;
+          this.hasLoadedUpcoming = true;
+          console.log(upcoming);
         }, 0);
       }
     });
@@ -112,11 +131,20 @@ export class LandingPageComponent {
     this.region = event.target.value;
     console.log(typeof (this.region));
     this.loadNowMovies(this.region, 1);
-
+  }
+  onSelection2(event: any) {
+    console.log('Selected value 2 :', event.target.value);
+    this.region2 = event.target.value;
+    console.log(typeof (this.region2));
+    this.loadUpcoming(this.region2, 1);
   }
   showAll(value: any) {
     console.log("region: ", value)
     this.router.navigate(['now-playing'], { queryParams: { region: value } });
+  }
+  showAll2(value: any) {
+    console.log("region: ", value)
+    this.router.navigate(['upcoming'], { queryParams: { region: value } });
   }
   showTrending(value: any){
     console.log("time: ", value)

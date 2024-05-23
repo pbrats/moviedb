@@ -6,6 +6,7 @@ import { TrendingComponent } from './component/trending/trending.component';
 import { GenresComponent } from './component/genres/genres.component';
 import { PopularComponent } from './component/popular/popular.component';
 import { TopRatedComponent } from './component/top-rated/top-rated.component';
+import { UpcomingComponent } from './component/upcoming/upcoming.component';
 
 export const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full" },
@@ -15,5 +16,6 @@ export const routes: Routes = [
     { path: "trending", component: TrendingComponent},
     { path: "popular", component: PopularComponent},
     { path: "top-rated", component: TopRatedComponent},
+    { path: "upcoming", component: UpcomingComponent},
     { path: "genres/:name", component: GenresComponent }
 ];

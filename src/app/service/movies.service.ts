@@ -11,6 +11,7 @@ export class MoviesService {
   private movieUrl = ' https://api.themoviedb.org/3/movie';
   private movieGenreUrl = 'https://api.themoviedb.org/3/genre/movie/list?language=en';
   private nowPlayingUrl = 'https://api.themoviedb.org/3/movie/now_playing';
+  private upcomingUrl = 'https://api.themoviedb.org/3/movie/upcoming';
   private trendingUrl = 'https://api.themoviedb.org/3/trending/movie';
   private popularUrl = 'https://api.themoviedb.org/3/movie/popular';
   private topUrl = 'https://api.themoviedb.org/3/movie/top_rated';
@@ -37,6 +38,10 @@ export class MoviesService {
   
   getNowMovies(region: any, page: number) {
     const url = `${this.nowPlayingUrl}?page=${page}&region=${region}&api_key=${this.apiKey}`;
+    return this.http.get(url);
+  }
+  getUpcoming(region: any, page: number) {
+    const url = `${this.upcomingUrl}?page=${page}&region=${region}&api_key=${this.apiKey}`;
     return this.http.get(url);
   }
   getTrending(time:string, page: number) {

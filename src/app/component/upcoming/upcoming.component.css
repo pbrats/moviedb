@@ -1,0 +1,30 @@
+.pagination .page-item.active .page-link {
+    background-color: #198754;
+    border-color: #198754;
+    color: white;
+    text-underline-offset: 5px;
+}
+
+.pagination .page-item .page-link {
+    color: #198754;
+    text-decoration: underline;
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: lightgray;
+    border-color: lightgrey;
+    color: gray;
+    text-decoration: none;
+}
+.card{
+    cursor:pointer;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  .card:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.9); /* Shadow on hover */
+  }
+  .card-container:hover .card:not(:hover) {
+    opacity: 0.85;
+  }
