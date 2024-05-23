@@ -10,7 +10,9 @@ export class MoviesService {
   private apiUrl = ' https://api.themoviedb.org/3/search/movie';
   private movieUrl = ' https://api.themoviedb.org/3/movie';
   private movieGenreUrl = 'https://api.themoviedb.org/3/genre/movie/list?language=en';
+  private nowPlayingUrl = 'https://api.themoviedb.org/3/movie/now_playing';
   private trendingUrl = 'https://api.themoviedb.org/3/trending/movie'
+  private popularUrl = 'https://api.themoviedb.org/3/movie/popular'
   constructor(private http: HttpClient) { }
   getMoviebyQuery(query: string, page: number = 1) {
     const url = `${this.apiUrl}?query=${query}&api_key=${this.apiKey}&page=${page}`;
@@ -25,12 +27,12 @@ export class MoviesService {
     const url = `${this.movieGenreUrl}&api_key=${this.apiKey}`;
     return this.http.get(url);
   }
-  // private genreMoviesUrl = 'https://api.themoviedb.org/3/discover/movie?page=1&with_genres';
-  // getMoviesByGenres(genre:string){
-  //   const url = `${this.genreMoviesUrl}=${genre}&api_key=${this.apiKey}`;
-  //   return this.http.get(url);
-  // }
-  private nowPlayingUrl = 'https://api.themoviedb.org/3/movie/now_playing';
+  private genreMoviesUrl = 'https://api.themoviedb.org/3/discover/movie';
+  getMoviesByGenres(genreId:number, page:number){
+    const url = `${this.genreMoviesUrl}?page=${page}&with_genres=${genreId}&api_key=${this.apiKey}`;
+    return this.http.get(url);
+  }
+  
   getNowMovies(region: any, page: number) {
     const url = `${this.nowPlayingUrl}?page=${page}&region=${region}&api_key=${this.apiKey}`;
     return this.http.get(url);
@@ -38,5 +40,8 @@ export class MoviesService {
   getTrending(time:string, page: number) {
     const url = `${this.trendingUrl}/${time}?page=${page}&api_key=${this.apiKey}`;
     return this.http.get(url);
+  }
+  getPopular(page:number){
+
   }
 }

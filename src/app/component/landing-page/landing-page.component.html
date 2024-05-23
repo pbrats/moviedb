@@ -58,7 +58,7 @@
         <h4 class="text-success">Genres</h4>
         <div class="card-group card-group-scroll">
             @for (genre of genres.genres; track $index){
-            <div class="card border border-success rounded rounded-3 m-2" title="click for details"
+            <div class="card border border-success rounded rounded-3 m-2" (click)="getGenreMovies(genre.name,  genre.id)" title="click for details"
                 style="max-width: 180px">
                 <div class="card-body text-center shadow">
                     <h5 class="card-title fw-bold text-success">{{genre.name}}</h5>

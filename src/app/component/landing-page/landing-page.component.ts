@@ -14,10 +14,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 export class LandingPageComponent {
   genres: any;
   hasLoadedGenres: boolean = false;
-  // hasLoadedGenresMovies: boolean = false;
   hasLoadedNowMovies: boolean = false;
-  // genrequery='action';
-  // genreMovies: any;
   nowMovies: any;
   region: string = 'gr';
   selectForm!: FormGroup;
@@ -40,15 +37,6 @@ export class LandingPageComponent {
         }, 0);
       }
     });
-    // this.movieService.getMoviesByGenres(this.genrequery).subscribe({
-    //   next: genreMovies => {
-    //     setTimeout(() => {
-    //       this.genreMovies = genreMovies;
-    //       this.hasLoadedGenresMovies = true;
-    //       console.log(genreMovies);
-    //     }, 0);
-    // }
-    // });
     this.loadNowMovies(this.region, 1);
     this.loadTrending(this.time, 1);
     this.selectForm = this.formBuilder.group({
@@ -122,5 +110,8 @@ export class LandingPageComponent {
       this.buttonDay = false;
     } 
     this.loadTrending(this.time, 1);
+  }
+  getGenreMovies(name:string, id: number){
+    this.router.navigate(["genres", name], { queryParams: { genre: id } } );
   }
 }
