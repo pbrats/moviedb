@@ -1,5 +1,24 @@
 # Moviedb
 
+The purpose of this project is to search, display and categorize movies into user defined collections.
+
+The user can search by a validated keyword for movies by their original, translated and alternative titles and get the paginated results list of movies, along with their details (title/poster/rating). 
+
+Selecting a movie from the results, the Movie Details Page opens in a popup and more information about the selected movie are displayed. At Movie Details Page there is also option to rate the selected movie. 
+
+The user can select a movie and then select a collection to add it to, from the custom collections list that appears in a pop up. 
+
+The custom collections can be created by the user using a title and a short description for every collection. 
+
+Collections can be managed at Movies Collections Page, where the user can create a new custom collection , see all the created collections, see the rated movies from this current visit, remove a collection from the list or delete all collections. 
+
+Each collection navigates to a new page containing the collection's informations and the movies list that contains, where movies can be deleted from the collection or Movie Details Page can be accessed.
+
+The application is based on the following free API: https://developers.themoviedb.org/3/getting-started
+
+
+Technologies: Angular, HTML, CSS, TypeScript, Bootstrap
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.0.
 
 ## Development server
