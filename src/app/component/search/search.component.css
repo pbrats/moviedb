@@ -17,17 +17,17 @@
     text-decoration: none;
 }
 
-.ng-pristine:not(form) {
+.searchForm .ng-pristine:not(form) {
     border-left: 6px solid grey;
 }
 
-.ng-touched:not(form),
-.ng-valid:not(form) {
+.searchForm .ng-touched:not(form),
+.searchForm .ng-valid:not(form) {
     border-left: 6px solid #a94442;
 }
 
-ng-valid,
-.ng-valid:not(form) {
+.searchForm ng-valid,
+.searchForm .ng-valid:not(form) {
     border-left: 6px solid #42A948;
 }
 

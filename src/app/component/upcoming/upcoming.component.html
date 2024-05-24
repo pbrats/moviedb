@@ -33,52 +33,71 @@
         <h6 class="text-end text-secondary fst-italic">Displaying: <span
                 class="fw-bold text-dark">{{startIndex+1}}</span> to <span
                 class="fw-bold text-dark">{{endIndex+1}}</span></h6>
-        <div class="row card-container">
-            <div class="col-3 m-3 mx-auto text-center" *ngFor="let movie of upcoming.results">
-                <div class="card h-100 border border-success rounded rounded-3" title="click for details">
-                    <div>
-                        <img [src]='"https://image.tmdb.org/t/p/w300"+(movie.poster_path)'
-                            onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
-                            alt="{{ movie.title }} poster path" placeholder (click)="moviePage(movie.id)"
-                            title="click for details">
-                        <div style="display: flex; flex-direction: row; justify-content:flex-end;">
-                            <button class="btn btn-sm btn-success col-sm-2 me-1 mt-1" type="button"
-                                data-bs-toggle="modal" data-bs-target="#collections"
-                                (click)="addToCollection(movie.id)" title="add to collection"><i class="bi bi-bookmark-plus"></i></button>
-                            <app-collections-popup [id]="selectedId" />
+        <form [formGroup]="collectionsForm" (submit)="onSelect()">
+            <div class="text-end m-2 mt-5">
+                <button type="submit" class="btn btn-success btn-sm ms-4" data-bs-toggle="modal"
+                    data-bs-target="#collectionsMultiple" [disabled]=collectionsForm.invalid
+                    title="add multiple movies to collection"> Add to
+                    collection</button>
+                <app-multiple-ids-popup [idArray]="selectedMoviesId" />
+            </div>
+            <div class="row card-container">
+                <div class="col-3 m-3 mx-auto text-center" *ngFor="let movie of upcoming.results">
+                    <div class="card h-100 border border-success rounded rounded-3" title="click for details">
+                        <div>
+                            <img [src]='"https://image.tmdb.org/t/p/w300"+(movie.poster_path)'
+                                onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
+                                alt="{{ movie.title }} poster path" placeholder (click)="moviePage(movie.id)"
+                                title="click for details">
+                            <div class="form-check m-2"
+                                style="display: flex; flex-direction: row; justify-content:flex-end;">
+                                <input class="form-check-input" formControlName="movieChecked" type="checkbox"
+                                    [value]="movie.id" id="movieChecked-{{movie.id}}" (change)="onChange($event)"
+                                    title="select to add to collection">
+                                <label class="form-check-label text-success" for="movieChecked-{{movie.id}}">
+                                    Add to collection
+                                </label>
+                            </div>
+                            <div style="display: flex; flex-direction: row; justify-content:flex-end;">
+                                <button class="btn btn-sm btn-success col-sm-2 me-1 mt-1" type="button"
+                                    data-bs-toggle="modal" data-bs-target="#collections"
+                                    (click)="addToCollection(movie.id)" title="add to collection"><i
+                                        class="bi bi-bookmark-plus"></i></button>
+                                <app-collections-popup [id]="selectedId" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body"
-                        style="display: flex; flex-direction: column; justify-content:space-between;">
-                        <div class="mb-3">
-                            <h5 class="card-title text-success fw-bold">{{ movie.title }}</h5>
-                            <p class="card-text "><span class="text-success">Average vote :</span>
-                                {{movie.vote_average}}</p>
+                        <div class="card-body"
+                            style="display: flex; flex-direction: column; justify-content:space-between;">
+                            <div class="mb-3">
+                                <h5 class="card-title text-success fw-bold">{{ movie.title }}</h5>
+                                <p class="card-text "><span class="text-success">Average vote :</span>
+                                    {{movie.vote_average}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <nav class="mt-2 mx-auto" aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item" [class.disabled]="currentPage === 1">
-                        <a class="page-link" (click)="previousPage()">Previous</a>
-                    </li>
-                    <li class="page-item" *ngFor="let page of pages">
-                        @if(page === -1){
-                        <span class="mx-1 text-success">. . .</span>
+                <nav class="mt-2 mx-auto" aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" [class.disabled]="currentPage === 1">
+                            <a class="page-link" (click)="previousPage()">Previous</a>
+                        </li>
+                        <li class="page-item" *ngFor="let page of pages">
+                            @if(page === -1){
+                            <span class="mx-1 text-success">. . .</span>
+                            }
+                            @if(page !== -1){
+                        <li class="page-item" [class.active]="currentPage === page">
+                            <a class="page-link" (click)="setPage(page)">{{ page }}</a>
+                        </li>
                         }
-                        @if(page !== -1){
-                    <li class="page-item" [class.active]="currentPage === page">
-                        <a class="page-link" (click)="setPage(page)">{{ page }}</a>
-                    </li>
-                    }
-                    </li>
-                    <li class="page-item" [class.disabled]="currentPage === totalPages">
-                        <a class="page-link" (click)="nextPage()">Next</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+                        </li>
+                        <li class="page-item" [class.disabled]="currentPage === totalPages">
+                            <a class="page-link" (click)="nextPage()">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </form>
     </div>
     }
     }@else{

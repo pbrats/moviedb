@@ -3,11 +3,13 @@ import { Component } from '@angular/core';
 import { MoviesService } from '../../service/movies.service';
 import { Router } from '@angular/router';
 import { CollectionsPopupComponent } from '../collections-popup/collections-popup.component';
+import { MultipleIdsPopupComponent } from '../multiple-ids-popup/multiple-ids-popup.component';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-popular',
   standalone: true,
-  imports: [CommonModule, CollectionsPopupComponent],
+  imports: [CommonModule, CollectionsPopupComponent, MultipleIdsPopupComponent, FormsModule, ReactiveFormsModule],
   templateUrl: './popular.component.html',
   styleUrl: './popular.component.css'
 })
@@ -21,9 +23,36 @@ export class PopularComponent {
   pageSize = 20; // Number of movies per page default by API
   totalMovies: any;
   selectedId!: number;
-  constructor(private router: Router, private movieService: MoviesService) { }
+  collectionsForm!: FormGroup;
+  selectedMoviesId: number[] = [];
+  constructor(private router: Router, private movieService: MoviesService, private formBuilder: FormBuilder) { }
   ngOnInit() {
     this.loadPopular(1);
+    this.setFormValues();
+  }
+  setFormValues() {
+    this.collectionsForm = new FormGroup({
+      movieChecked: new FormControl("", Validators.requiredTrue)
+    });
+  }
+  onSelect() {
+    console.log("input value:", this.collectionsForm.value);
+    if (this.selectedMoviesId.length > 0) {
+      console.log("selectedMoviesId:", this.selectedMoviesId);
+      this.collectionsForm.reset();
+      console.log("after reset form values:", this.collectionsForm.value);
+    }
+  }
+  onChange(event: any) {
+    console.log("selected movies ids length:", this.selectedMoviesId.length);
+    if (this.selectedMoviesId.length > 0) {
+      console.log("new id to add :", String(event.target.value));
+      this.selectedMoviesId.push(event.target.value);
+      console.log("selected movies ids :", this.selectedMoviesId);
+    } else {
+      this.selectedMoviesId = [event.target.value];
+      console.log("selected movies ids", this.selectedMoviesId);
+    }
   }
   loadPopular(page: number) {
     this.movieService.getPopular(page).subscribe({

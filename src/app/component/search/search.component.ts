@@ -49,7 +49,7 @@ export class SearchComponent {
   }
   setFormValues() {
     this.collectionsForm = new FormGroup({
-      movieChecked: new FormControl("", Validators.required)
+      movieChecked: new FormControl("", Validators.requiredTrue)
     });
   }
   onSelect() {
@@ -57,6 +57,7 @@ export class SearchComponent {
     if (this.selectedMoviesId.length > 0) {
       console.log("selectedMoviesId:", this.selectedMoviesId);
       this.collectionsForm.reset();
+      console.log("after reset form values:",this.collectionsForm.value);
     }
   }
   onChange(event: any) {

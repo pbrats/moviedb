@@ -3,11 +3,13 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MoviesService } from '../../service/movies.service';
 import { CommonModule } from '@angular/common';
 import { CollectionsPopupComponent } from '../collections-popup/collections-popup.component';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MultipleIdsPopupComponent } from '../multiple-ids-popup/multiple-ids-popup.component';
 
 @Component({
   selector: 'app-genres',
   standalone: true,
-  imports: [CommonModule, CollectionsPopupComponent],
+  imports: [CommonModule, CollectionsPopupComponent, FormsModule, ReactiveFormsModule, MultipleIdsPopupComponent],
   templateUrl: './genres.component.html',
   styleUrl: './genres.component.css'
 })
@@ -24,7 +26,9 @@ export class GenresComponent {
   pageSize = 20; // Number of movies per page default by API
   totalMovies: any;
   selectedId!: number;
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private movieService: MoviesService) { }
+  collectionsForm!: FormGroup;
+  selectedMoviesId: number[] = [];
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private movieService: MoviesService, private formBuilder: FormBuilder) { }
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(
       (params: any) => {
@@ -41,6 +45,31 @@ export class GenresComponent {
     this.genreName = part1.split('?')[0];
     this.genreName = decodeURIComponent(this.genreName);
     console.log("genre name:", this.genreName);
+    this.setFormValues();
+  }
+  setFormValues() {
+    this.collectionsForm = new FormGroup({
+      movieChecked: new FormControl("", Validators.requiredTrue)
+    });
+  }
+  onSelect() {
+    console.log("input value:", this.collectionsForm.value);
+    if (this.selectedMoviesId.length > 0) {
+      console.log("selectedMoviesId:", this.selectedMoviesId);
+      this.collectionsForm.reset();
+      console.log("after reset form values:", this.collectionsForm.value);
+    }
+  }
+  onChange(event: any) {
+    console.log("selected movies ids length:", this.selectedMoviesId.length);
+    if (this.selectedMoviesId.length > 0) {
+      console.log("new id to add :", String(event.target.value));
+      this.selectedMoviesId.push(event.target.value);
+      console.log("selected movies ids :", this.selectedMoviesId);
+    } else {
+      this.selectedMoviesId = [event.target.value];
+      console.log("selected movies ids", this.selectedMoviesId);
+    }
   }
   loadGenreMovies(genreId: number, page: number) {
     this.movieService.getMoviesByGenres(genreId, page).subscribe({
