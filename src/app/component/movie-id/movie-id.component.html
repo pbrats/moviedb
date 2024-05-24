@@ -1,44 +1,143 @@
 @if(movieDetails){
 @if(hasLoadedmovie){
-<div class="container my-5 ">
+<div class="container my-5 pb-2">
     <h1 class="text-center fw-bold text-success m-5 pb-5 pt-2">{{ movieDetails.original_title }}</h1>
     <div class="my-5" style="display:flex; flex-direction: row; justify-content:space-between;">
         <div class="mx-5">
             <img [src]='"https://image.tmdb.org/t/p/w300"+(movieDetails.poster_path)'
                 onerror="this.src='../assets/images/no-poster.png';" class="img-top mb-4"
                 alt="{{ movieDetails.original_title }} poster path" placeholder>
-                <h3 class="fw-bold fst-italic text-success text-center ">{{ movieDetails.tagline }}</h3>
+            <h3 class="fw-bold fst-italic text-success text-center mb-5">{{ movieDetails.tagline }}</h3>
+            <div class="card text-bg-light my-3 text-center">
+                <div class="card-header fst-italic fw-bold text-success">Spoken languages</div>
+                <div class="card-body">
+                    <ul *ngFor="let lang of movieDetails.spoken_languages">
+                        <li>
+                            <p class="card-text">{{ lang.name }}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card text-bg-light mb-3 text-center">
+                <div class="card-header fst-italic fw-bold text-success">Genres</div>
+                <div class="card-body">
+                    <ul *ngFor="let genre of movieDetails.genres">
+                        <li>
+                            <p class="card-text">{{ genre.name }}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
         <div class="mx-auto text-center" style="min-height: max-content;">
-            <p><span class="fst-italic fw-bold text-success">Overview: </span></p>
-            <p class="mb-5">{{movieDetails.overview }}</p>
-            <p><span class="fst-italic fw-bold text-success">Homepage: </span><a [href]="movieDetails.homepage" target="_blank" class="link link-underline-success link-offset-2 link-offset-3-hover"> {{ movieDetails.homepage}}</a>
-            </p>
-            <p><span class="fst-italic fw-bold text-success">Release date: </span>{{ movieDetails.release_date }}</p>
-            <p><span class="fst-italic fw-bold text-success">Budget:</span> {{ movieDetails.budget | number:'1.2-2' }} $
-            </p>
-            <p><span class="fst-italic fw-bold text-success">Revenue:</span> {{ movieDetails.revenue | number:'1.2-2'}} $
-            </p>
-            <p><span class="fst-italic fw-bold text-success">Average vote:</span> {{ movieDetails.vote_average }}</p>
-            <p><span class="fst-italic fw-bold text-success">Vote count: </span>{{ movieDetails.vote_count }}</p>
-            <p><span class="fst-italic fw-bold text-success">Popularity: </span>{{ movieDetails.popularity }}</p>
-            @if(movieDetails.belongs_to_collection!==null){
-                <p><span class="fst-italic fw-bold text-success">Belongs to Collection: </span>{{movieDetails.belongs_to_collection.name}}</p>
-            }          
+            <div class="card text-bg-light mb-5">
+                <div class="card-header fst-italic fw-bold text-success">Overview</div>
+                <div class="card-body m-5">
+                    <p class="card-text">{{movieDetails.overview }}</p>
+                </div>
+            </div>
+            <div class="card border-light mb-5 col-sm-8 mx-auto">
+                <div class="card-header fst-italic fw-bold text-success">Homepage</div>
+                <div class="card-body">
+                    <p class="card-text mx-5"><a [href]="movieDetails.homepage" target="_blank"
+                            class="link link-underline-success link-offset-2 link-offset-3-hover"> {{
+                            movieDetails.homepage}}</a></p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="card border-light mb-3 mx-2" style="max-width: 12rem;">
+                    <div class="card-header fst-italic fw-bold text-success">Release date</div>
+                    <div class="card-body">
+                        <p class="card-text">{{ movieDetails.release_date }}</p>
+                    </div>
+                </div>
+                <div class="card border-light mb-3 mx-2" style="max-width: 12rem;">
+                    <div class="card-header fst-italic fw-bold text-success">Budget</div>
+                    <div class="card-body">
+                        <p class="card-text">{{ movieDetails.budget | number:'1.2-2' }} $</p>
+                    </div>
+                </div>
+                <div class="card border-light mb-3 mx-2" style="max-width: 12rem;">
+                    <div class="card-header fst-italic fw-bold text-success">Revenue</div>
+                    <div class="card-body">
+                        <p class="card-text">{{ movieDetails.revenue | number:'1.2-2'}} $</p>
+                    </div>
+                </div>
+                <div class="card border-light mb-3 mx-2" style="max-width: 12rem;">
+                    <div class="card-header fst-italic fw-bold text-success">Average vote</div>
+                    <div class="card-body">
+                        <p class="card-text">{{ movieDetails.vote_average }}</p>
+                    </div>
+                </div>
+                <div class="card border-light mb-3 mx-2" style="max-width: 12rem;">
+                    <div class="card-header fst-italic fw-bold text-success">Vote count</div>
+                    <div class="card-body">
+                        <p class="card-text">{{ movieDetails.vote_count }}</p>
+                    </div>
+                </div>
+                <div class="card border-light mb-3 mx-2" style="max-width: 12rem;">
+                    <div class="card-header fst-italic fw-bold text-success">Popularity</div>
+                    <div class="card-body">
+                        <p class="card-text">{{ movieDetails.popularity }}</p>
+                    </div>
+                </div>
+                @if(movieDetails.belongs_to_collection!==null){
+                <div class="card border-light mb-3 mx-2" style="max-width: 12rem;">
+                    <div class="card-header fst-italic fw-bold text-success">Collection</div>
+                    <div class="card-body">
+                        <p class="card-text">{{movieDetails.belongs_to_collection.name}}</p>
+                    </div>
+                </div>
+                }
+                <div class="card border-light mb-3 mx-2" style="max-width: fit-content;">
+                    <div class="card-header fst-italic fw-bold text-success">Production Companies</div>
+                    <div class="card-body">
+                        <ul class="d-flex flex-column align-self-center"
+                            *ngFor="let company of movieDetails.production_companies">
+                            <li>
+                                <img [src]='"https://image.tmdb.org/t/p/w92"+(company.logo_path)'
+                                    onerror="this.src='../assets/images/no-poster.png';" class="img-top me-4"
+                                    alt="{{ movieDetails.original_title }} logo path" placeholder>
+                                <span>{{ company.name }} ({{company.origin_country}})</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card border-light mb-3 mx-2" style="max-width: 12rem;">
+                    <div class="card-header fst-italic fw-bold text-success">Production Countries</div>
+                    <div class="card-body">
+                        <ul *ngFor="let country of movieDetails.production_countries">
+                            <li>
+                                <p class="card-text">{{ country.name }}</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="rating my-5">
-        <form [formGroup]="ratingForm" (submit)="onSubmit()" class="my-5 py-5 d-flex mx-auto col-sm-8">
-            <label for="rating" class="form-label fw-bold fs-5 fst-italic text-success col-sm-3 me-3">Rate this movie:
+    <div class="rating my-5 card border-success col-sm-6 mx-auto">
+        <div class="card-header fst-italic fw-bold text-success text-center">
+            <label for="rating" class="form-label fs-5">Rate this movie
             </label>
-            <input type="range" formControlName="rating" class="form-range mx-2" min="0.5" max="10" step="0.5"
-                id="rating">
-            @if(ratingForm.get('rating')?.value){
-            <p class="badge bg-secondary"> {{ ratingForm.get('rating')?.value }} </p>
-            }
-            <button type="submit" class="btn btn-success ms-4 col-sm-2" [disabled]=ratingForm.invalid> Submit
-                rate</button>
-        </form>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="ratingForm" (submit)="onSubmit()">
+                <div class="my-5 d-flex mx-auto col-sm-8">
+                    <p class="badge bg-secondary">0</p>
+                    <input type="range" formControlName="rating" class="form-range mx-2" min="0.5" max="10" step="0.5"
+                        id="rating">
+                    @if(!ratingForm.get('rating')?.value){
+                    <p class="badge bg-secondary">10</p>
+                    }
+                    @if(ratingForm.get('rating')?.value){
+                    <p class="badge bg-secondary"> {{ ratingForm.get('rating')?.value }} </p>
+                    }
+                </div>
+                <button type="submit" class="btn btn-success d-flex mx-auto" [disabled]=ratingForm.invalid> Submit
+                    rate</button>
+            </form>
+        </div>
         @if(showSuccessMessage){
         <div class="alert alert-success alert-dismissible my-3 mx-auto" role="alert" style="width:fit-content">
             <h4 class="text-success">{{response.status_message}}</h4>
@@ -46,47 +145,17 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         }
-        <div class="my-3 pt-3" style="display:flex; flex-direction: row;justify-content: flex-start;">
-            <span class="fst-italic fw-bold text-success me-2">Spoken languages:</span>
-            <ul class="me-5" *ngFor="let lang of movieDetails.spoken_languages">
-                <li> {{ lang.name }}</li>
-            </ul>
-        </div>
-        <div class="my-3" style="display:flex; flex-direction: row;justify-content: flex-start;" >
-            <span class="fst-italic fw-bold text-success me-2">Genres:</span>
-            <ul class="me-5" *ngFor="let genre of movieDetails.genres">
-                <li> {{ genre.name }}</li>
-            </ul>
-        </div>
-        <div class="my-5" style="display:flex; flex-direction: row; justify-content: flex-start;">
-            <span  class="d-flex flex-column align-self-center fst-italic fw-bold text-success me-2">Production Companies:</span>
-            <ul class="me-5 d-flex flex-column align-self-center" *ngFor="let company of movieDetails.production_companies">
-                <li>
-                    <img [src]='"https://image.tmdb.org/t/p/w92"+(company.logo_path)'
-                    onerror="this.src='../assets/images/no-poster.png';" class="img-top me-2"
-                    alt="{{ movieDetails.original_title }} logo path" placeholder>
-                    <span>{{ company.name }}  ({{company.origin_country}})</span>
-                </li>
-            </ul>
-        </div>
-        <div class="mt-3 mb-5" style="display:flex; flex-direction: row;justify-content: flex-start;">
-            <span class="fst-italic fw-bold text-success me-2">Production Countries:</span>
-            <ul class="me-5" *ngFor="let country of movieDetails.production_countries">
-                <li> {{ country.name }}</li>
-            </ul>
-        </div>
-       
     </div>
 </div>
-    }@else{
-    <div class="my-5">
-        <h1 class="text-success text-center fs-3 fst-italic fw-normal">Loading Results ..</h1>
-        <br>
-        <div class="d-flex justify-content-center">
-            <div class="spinner-border text-success align-center" style="width: 3rem; height: 3rem;" role="status">
-                <span class="visually-hidden ">Loading...</span>
-            </div>
+}@else{
+<div class="my-5">
+    <h1 class="text-success text-center fs-3 fst-italic fw-normal">Loading Results ..</h1>
+    <br>
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-success align-center" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden ">Loading...</span>
         </div>
     </div>
-    }
-    }
+</div>
+}
+}
