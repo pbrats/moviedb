@@ -1,59 +1,92 @@
 @if(movieDetails){
-    @if(hasLoadedmovie){
-        <div class="container">
-            <!-- <h1>id:{{idSelected}}</h1>
-                            <h1>id2:{{movieDetails.id}}</h1> -->
-            <h1 class="text-center text-success m-5">{{ movieDetails.original_title }}</h1>
-            <div class="text-center m-5">
-                <img [src]='"https://image.tmdb.org/t/p/w300"+(movieDetails.poster_path)'
-                    onerror="this.src='../assets/images/no-poster.png';" class="img-top"
-                    alt="{{ movieDetails.original_title }} poster path" style="width: 300px; height: 100%" placeholder>
-            </div>
-            <div class="text-center m-5">
-                <p class="mx-auto col-sm-8"><span class="fst-italic fw-bold text-success">Overview: </span>{{
-                    movieDetails.overview }}</p>
-                <p><span class="fst-italic fw-bold text-success">Release date: </span>{{ movieDetails.release_date }}</p>
-                <p><span class="fst-italic fw-bold text-success">Budget:</span> {{ movieDetails.budget | number:'1.2-2' }} $</p>
-                <p><span class="fst-italic fw-bold text-success">Revenue:</span> {{ movieDetails.revenue | number:'1.2-2'}} $
-                </p>
-                <p><span class="fst-italic fw-bold text-success">Average vote:</span> {{ movieDetails.vote_average }}</p>
-                <p><span class="fst-italic fw-bold text-success">Vote count: </span>{{ movieDetails.vote_count }}</p>
-                <div>
-                    <span class="fst-italic fw-bold text-success">Spoken languages:</span>
-                    <ul class="mx-auto col-sm-1" *ngFor="let lang of movieDetails.spoken_languages">
-                        <li> {{ lang.name }}</li>
-                    </ul>
-                </div>
-            </div>
+@if(hasLoadedmovie){
+<div class="container my-5 ">
+    <h1 class="text-center text-success m-5 pb-5 pt-2">{{ movieDetails.original_title }}</h1>
+    <div class="my-5" style="display:flex; flex-direction: row; justify-content:space-between;">
+        <div class="mx-5">
+            <img [src]='"https://image.tmdb.org/t/p/w300"+(movieDetails.poster_path)'
+                onerror="this.src='../assets/images/no-poster.png';" class="img-top mb-4"
+                alt="{{ movieDetails.original_title }} poster path" placeholder>
+                <h3 class="fw-bold fst-italic text-success text-center ">{{ movieDetails.tagline }}</h3>
         </div>
-        <div class="container rating">
-            <form [formGroup]="ratingForm" (submit)="onSubmit()" class="d-flex mx-auto col-sm-8">
-                <label for="rating" class="form-label fw-bold fs-5 fst-italic text-success col-sm-3 me-3">Rate this movie:
-                </label>
-                <input type="range" formControlName="rating" class="form-range mx-2" min="0.5" max="10" step="0.5" id="rating">
-                @if(ratingForm.get('rating')?.value){
-                    <p class="badge bg-secondary"> {{ ratingForm.get('rating')?.value }} </p>
-                }
-                <button type="submit" class="btn btn-success ms-4 col-sm-2" [disabled]=ratingForm.invalid> Submit rate</button>
-            </form>
-            @if(showSuccessMessage){
-                <div class="alert alert-success alert-dismissible my-3 mx-auto" role="alert" style="width:fit-content">
-                    <h4 class="text-success">{{response.status_message}}</h4>
-                    <div><i class="bi bi-check-circle-fill mx-2"></i>Your rating was successfully submitted!</div>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+        <div class="mx-auto text-center" style="min-height: max-content;">
+            <p><span class="fst-italic fw-bold text-success">Overview: </span></p>
+            <p class="mb-5">{{movieDetails.overview }}</p>
+            <p><span class="fst-italic fw-bold text-success">Homepage: </span><a [href]="movieDetails.homepage" target="_blank" class="link link-underline-success link-offset-2 link-offset-3-hover"> {{ movieDetails.homepage}}</a>
+            </p>
+            <p><span class="fst-italic fw-bold text-success">Release date: </span>{{ movieDetails.release_date }}</p>
+            <p><span class="fst-italic fw-bold text-success">Budget:</span> {{ movieDetails.budget | number:'1.2-2' }} $
+            </p>
+            <p><span class="fst-italic fw-bold text-success">Revenue:</span> {{ movieDetails.revenue | number:'1.2-2'}} $
+            </p>
+            <p><span class="fst-italic fw-bold text-success">Average vote:</span> {{ movieDetails.vote_average }}</p>
+            <p><span class="fst-italic fw-bold text-success">Vote count: </span>{{ movieDetails.vote_count }}</p>
+            <p><span class="fst-italic fw-bold text-success">Popularity: </span>{{ movieDetails.popularity }}</p>
+            @if(movieDetails.belongs_to_collection!==null){
+                <p><span class="fst-italic fw-bold text-success">Belongs to Collection: </span>{{movieDetails.belongs_to_collection.name}}</p>
+            }          
+        </div>
+    </div>
+    <div class="rating my-5">
+        <form [formGroup]="ratingForm" (submit)="onSubmit()" class="my-5 py-5 d-flex mx-auto col-sm-8">
+            <label for="rating" class="form-label fw-bold fs-5 fst-italic text-success col-sm-3 me-3">Rate this movie:
+            </label>
+            <input type="range" formControlName="rating" class="form-range mx-2" min="0.5" max="10" step="0.5"
+                id="rating">
+            @if(ratingForm.get('rating')?.value){
+            <p class="badge bg-secondary"> {{ ratingForm.get('rating')?.value }} </p>
             }
+            <button type="submit" class="btn btn-success ms-4 col-sm-2" [disabled]=ratingForm.invalid> Submit
+                rate</button>
+        </form>
+        @if(showSuccessMessage){
+        <div class="alert alert-success alert-dismissible my-3 mx-auto" role="alert" style="width:fit-content">
+            <h4 class="text-success">{{response.status_message}}</h4>
+            <div><i class="bi bi-check-circle-fill mx-2"></i>Your rating was successfully submitted!</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         }
-    @else{
-        <div class="my-5">
-            <h1 class="text-success text-center fs-3 fst-italic fw-normal">Loading Results ..</h1>
-            <br>
-            <div class="d-flex justify-content-center">
-                <div class="spinner-border text-success align-center" style="width: 3rem; height: 3rem;" role="status">
-                    <span class="visually-hidden ">Loading...</span>
-                </div>
+        <div class="my-3 pt-3" style="display:flex; flex-direction: row;justify-content: flex-start;">
+            <span class="fst-italic fw-bold text-success me-2">Spoken languages:</span>
+            <ul class="me-5" *ngFor="let lang of movieDetails.spoken_languages">
+                <li> {{ lang.name }}</li>
+            </ul>
+        </div>
+        <div class="my-3" style="display:flex; flex-direction: row;justify-content: flex-start;" >
+            <span class="fst-italic fw-bold text-success me-2">Genres:</span>
+            <ul class="me-5" *ngFor="let genre of movieDetails.genres">
+                <li> {{ genre.name }}</li>
+            </ul>
+        </div>
+        <div class="my-5" style="display:flex; flex-direction: row; justify-content: flex-start;">
+            <span  class="d-flex flex-column align-self-center fst-italic fw-bold text-success me-2">Production Companies:</span>
+            <ul class="me-5 d-flex flex-column align-self-center" *ngFor="let company of movieDetails.production_companies">
+                <li>
+                    <img [src]='"https://image.tmdb.org/t/p/w92"+(company.logo_path)'
+                    onerror="this.src='../assets/images/no-poster.png';" class="img-top me-2"
+                    alt="{{ movieDetails.original_title }} logo path" placeholder>
+                    <span>{{ company.name }}  ({{company.origin_country}})</span>
+                </li>
+            </ul>
+        </div>
+        <div class="mt-3 mb-5" style="display:flex; flex-direction: row;justify-content: flex-start;">
+            <span class="fst-italic fw-bold text-success me-2">Production Countries:</span>
+            <ul class="me-5" *ngFor="let country of movieDetails.production_countries">
+                <li> {{ country.name }}</li>
+            </ul>
+        </div>
+       
+    </div>
+</div>
+    }@else{
+    <div class="my-5">
+        <h1 class="text-success text-center fs-3 fst-italic fw-normal">Loading Results ..</h1>
+        <br>
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-success align-center" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden ">Loading...</span>
             </div>
         </div>
+    </div>
     }
-}
+    }
