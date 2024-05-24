@@ -59,9 +59,9 @@
                             movieDetails.homepage}}</a></p>
                 </div>
             </div>
-            <div class="rating my-5 card text-bg-light border-success col-sm-8 mx-auto">
-                <div class="card-header fst-italic fw-bold text-success text-center">
-                    <label for="rating" class="form-label fs-5">Rate this movie
+            <div class="rating my-5 card text-bg-success bg-opacity-75 border-success col-sm-8 mx-auto">
+                <div class="card-header fst-italic fw-bold text-center">
+                    <label for="rating" class="form-label fs-4">Rate this movie
                     </label>
                 </div>
                 <div class="card-body">
@@ -69,7 +69,7 @@
                         <div class="my-2 d-flex mx-auto col-sm-8">
                             <p class="badge bg-secondary">0</p>
                             <input type="range" formControlName="rating" class="form-range mx-2" min="0.5" max="10"
-                                step="0.5" id="rating">
+                                step="0.5" id="rating" title="rate movie">
                             @if(!ratingForm.get('rating')?.value){
                             <p class="badge bg-secondary">10 <i class="bi bi-star-fill"></i></p>
                             }
@@ -78,7 +78,7 @@
                                     class="bi bi-star-fill"></i></p>
                             }
                         </div>
-                        <button type="submit" class="btn btn-success d-flex mx-auto" [disabled]=ratingForm.invalid>
+                        <button type="submit" class="btn btn-dark d-flex mx-auto" [disabled]=ratingForm.invalid>
                             Submit
                             rate</button>
                     </form>
