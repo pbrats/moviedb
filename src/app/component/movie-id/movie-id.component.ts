@@ -5,11 +5,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MoviesService } from '../../service/movies.service';
 import { SessionService } from '../../service/session.service';
 import { Title } from '@angular/platform-browser';
+import { CollectionsPopupComponent } from '../collections-popup/collections-popup.component';
 
 @Component({
   selector: 'app-movie-id',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, CollectionsPopupComponent],
   templateUrl: './movie-id.component.html',
   styleUrl: './movie-id.component.css'
 })
@@ -23,7 +24,7 @@ export class MovieIdComponent {
   sessionId: string = '';
   showSuccessMessage: boolean = false;
   hasLoadedmovie: boolean = false;
-
+  selectedId!: number;
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private movieService: MoviesService, private sesService: SessionService, private titleService: Title) { }
   ngOnInit() {
     this.setFormValues();
@@ -85,5 +86,9 @@ export class MovieIdComponent {
       }, error => {
         console.error('Failed to rate movie:', error);
       });
+  }
+  addToCollection(id: number) {
+    this.selectedId = id
+    console.log('movie id to add to collection :', id);
   }
 }

@@ -1,36 +1,36 @@
 /* scroll */
 @media (min-width: 576px) {
-    .card-group.card-group-scroll {
-      overflow-x: auto;
-      flex-wrap: nowrap;
-    }
+  .card-group.card-group-scroll {
+    overflow-x: auto;
+    flex-wrap: nowrap;
   }
-  
-  .card-group.card-group-scroll>.card {
-    flex-basis: 35%;
-  }
-  
-  ::-webkit-scrollbar {
-    height: 12px;
-  }
-  
-  /* Track */
+}
+
+.card-group.card-group-scroll>.card {
+  flex-basis: 35%;
+}
+
+::-webkit-scrollbar {
+  height: 12px;
+}
+
+/* Track */
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px #adb5bd;
-    border-radius: 10px;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #495057;
-    border-radius: 10px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #198754;
-  }
- 
+  box-shadow: inset 0 0 5px #adb5bd;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #495057;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #198754;
+}
+
 .background-container {
   position: absolute;
   top: 10vh;
@@ -49,24 +49,31 @@
   0% {
     background-image: url('/../assets/images/c.jpg');
   }
+
   25% {
     background-image: url('/../assets/images/c.jpg');
   }
+
   25.01% {
     background-image: url('/../assets/images/2.jpeg');
   }
+
   50% {
     background-image: url('/../assets/images/2.jpeg');
   }
+
   50.01% {
     background-image: url('/../assets/images/b.jpg');
   }
+
   75% {
     background-image: url('/../assets/images/b.jpg');
   }
+
   75.01% {
     background-image: url('/../assets/images/1.jpeg');
   }
+
   100% {
     background-image: url('/../assets/images/1.jpeg');
   }
@@ -77,43 +84,49 @@
   height: 60vh;
   z-index: 1;
 }
-.first-element h1,
-.first-element h2{
-    font-weight: 800;
-} 
 
-.errors p{
+.first-element h1,
+.first-element h2 {
+  font-weight: 800;
+}
+
+.errors p {
   background-color: #4e4e4e;
 }
-.outline{
+
+.outline {
   border-style: solid;
   border-radius: 30px;
   border-width: 2px;
   border-color: #606163;
 }
-.searchForm  .ng-pristine:not(form) {
+
+.searchForm .ng-pristine:not(form) {
   border-left: 6px solid grey;
 }
 
-.searchForm  .ng-touched:not(form),
-.searchForm  .ng-valid:not(form) {
+.searchForm .ng-touched:not(form),
+.searchForm .ng-valid:not(form) {
   border-left: 6px solid #a94442;
 }
 
-.searchForm  ng-valid,
-.searchForm  .ng-valid:not(form) {
+.searchForm ng-valid,
+.searchForm .ng-valid:not(form) {
   border-left: 6px solid #42A948;
 }
-.card{
-  cursor:pointer;
-  scale:0.95;
+
+.card {
+  cursor: pointer;
+  scale: 0.95;
   transition: transform 0.5s, opacity 0.5s;
 }
 
 .card:hover {
   transform: scale(1.07);
-  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
+  /* Shadow on hover */
 }
+
 .card-group:hover .card:not(:hover) {
   opacity: 0.8;
 }

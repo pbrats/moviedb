@@ -1,0 +1,13 @@
+.card {
+    cursor: pointer;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.9);
+    /* Shadow on hover */
+}
+
+.card-container:hover .card:not(:hover) {
+    opacity: 0.7;
+}

@@ -26,18 +26,18 @@ export class LandingPageComponent {
   searchQuery: string = '';
   hasLoadedTrending: boolean = false;
   trending: any;
-  popular:any;
+  popular: any;
   hasLoadedPopular: boolean = false;
   top: any;
   hasLoadedTop: boolean = false;
   buttonDay: boolean = true;
   buttonWeek: boolean = false;
-  hasLoadedUpcoming: boolean= false;
+  hasLoadedUpcoming: boolean = false;
   upcoming: any;
   region2: string = 'gr';
   sessionInfos: any;
   sessionId: string = '';
-  constructor(private router: Router, private movieService: MoviesService, private formBuilder: FormBuilder,  private sesService: SessionService) { }
+  constructor(private router: Router, private movieService: MoviesService, private formBuilder: FormBuilder, private sesService: SessionService) { }
   ngOnInit() {
     const hasRated = sessionStorage.getItem('hasRated');
     console.log('hasRated', hasRated);
@@ -117,7 +117,7 @@ export class LandingPageComponent {
       }
     });
   }
-  loadTrending(time:string, page:number){
+  loadTrending(time: string, page: number) {
     this.movieService.getTrending(time, page).subscribe({
       next: trending => {
         setTimeout(() => {
@@ -128,23 +128,23 @@ export class LandingPageComponent {
       }
     });
   }
-  loadPopular(page:number){
+  loadPopular(page: number) {
     this.movieService.getPopular(page).subscribe({
       next: popular => {
         setTimeout(() => {
           this.popular = popular;
-          this.hasLoadedPopular= true;
+          this.hasLoadedPopular = true;
           console.log(popular);
         }, 0);
       }
     });
   }
-  loadTop(page:number){
+  loadTop(page: number) {
     this.movieService.getTop(page).subscribe({
       next: top => {
         setTimeout(() => {
           this.top = top;
-          this.hasLoadedTop= true;
+          this.hasLoadedTop = true;
           console.log(top);
         }, 0);
       }
@@ -170,7 +170,7 @@ export class LandingPageComponent {
     console.log("region: ", value)
     this.router.navigate(['upcoming'], { queryParams: { region: value } });
   }
-  showTrending(value: any){
+  showTrending(value: any) {
     console.log("time: ", value)
     this.router.navigate(['trending'], { queryParams: { time: value } });
   }
@@ -182,17 +182,17 @@ export class LandingPageComponent {
     this.time = buttonName;
     if (buttonName == "day") {
       console.log("button day");
-      this.buttonDay= true;
+      this.buttonDay = true;
       this.buttonWeek = false;
     } else if (buttonName == "week") {
       console.log("button week");
       this.buttonWeek = true;
       this.buttonDay = false;
-    } 
+    }
     this.loadTrending(this.time, 1);
   }
-  getGenreMovies(name:string, id: number){
-    this.router.navigate(["genres", name], { queryParams: { genre: id } } );
+  getGenreMovies(name: string, id: number) {
+    this.router.navigate(["genres", name], { queryParams: { genre: id } });
   }
   moviePage(id: number) {
     console.log('details id:', id);

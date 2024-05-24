@@ -3,18 +3,19 @@ import { MoviesService } from '../../service/movies.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CollectionsPopupComponent } from '../collections-popup/collections-popup.component';
 
 @Component({
   selector: 'app-now-playing',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, CollectionsPopupComponent],
   templateUrl: './now-playing.component.html',
   styleUrl: './now-playing.component.css'
 })
 export class NowPlayingComponent {
   hasLoadedNowMovies: boolean = false;
   nowMovies: any;
-  region: string ='gr';
+  region: string = 'gr';
   selectForm!: FormGroup;
   totalPages = 0; // total pages of the data from API
   currentPage = 1; // set initial page the 1st
@@ -22,26 +23,27 @@ export class NowPlayingComponent {
   endIndex = 0;
   pageSize = 20; // Number of movies per page default by API
   totalMovies: any;
+  selectedId!: number;
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private movieService: MoviesService, private formBuilder: FormBuilder) { }
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(
       (params: any) => {
         console.log("params:", params);
-        if(params['region']!==undefined){
+        if (params['region'] !== undefined) {
           this.region = params['region'];
         }
         console.log("this region:", this.region);
       });
-      this.selectForm = this.formBuilder.group({
-        selectedRegion: [this.region ||'gr']
-      });
+    this.selectForm = this.formBuilder.group({
+      selectedRegion: [this.region || 'gr']
+    });
     this.loadNowMovies(this.region, this.currentPage);
   }
   onSelection(event: any) {
     console.log('Selected value :', event.target.value);
     this.region = event.target.value;
-    this.router.navigate(['now-playing'],{ queryParams: { region: this.region} });
-    this.currentPage =1;
+    this.router.navigate(['now-playing'], { queryParams: { region: this.region } });
+    this.currentPage = 1;
     this.loadNowMovies(this.region, this.currentPage);
   }
   loadNowMovies(region: string, page: number) {
@@ -52,7 +54,7 @@ export class NowPlayingComponent {
           this.hasLoadedNowMovies = true;
           console.log(nowMovies);
           this.totalPages = this.nowMovies.total_pages;
-          console.log("total pages: ",this.totalPages);
+          console.log("total pages: ", this.totalPages);
           this.totalMovies = this.nowMovies.total_results;
           console.log("total results:", this.totalMovies);
           this.startIndex = (page - 1) * this.pageSize;
@@ -69,7 +71,7 @@ export class NowPlayingComponent {
     }
     this.currentPage = page;
     console.log("currentPage:", this.currentPage);
-    this.loadNowMovies(this.region,this.currentPage);
+    this.loadNowMovies(this.region, this.currentPage);
     console.log("displayedMovies:", this.nowMovies);
   }
   previousPage(): void {
@@ -106,5 +108,9 @@ export class NowPlayingComponent {
   moviePage(id: number) {
     console.log('details id:', id);
     this.router.navigate(['movies', id]);
+  }
+  addToCollection(id: number) {
+    this.selectedId = id
+    console.log('movie id to add to collection :', id);
   }
 }

@@ -1,0 +1,91 @@
+<div class="container m-5">
+    @if(collections !!!= undefined ){
+    @if(collections.length >0){
+    <div class="text-end">
+        <button class="btn btn-sm btn-danger" (click)="deleteCollections()"> Delete all collections <i
+                class="bi bi-trash-fill ms-1"></i></button>
+    </div>
+    }
+    }
+    <h1 class="text-success mb-5">My collections</h1>
+    <div class="row">
+        <div class="col-sm-4 mx-auto">
+            <div class="card m-3 bg-light border rounded border-success border-3" style="width:300px;height:200px"
+                (click)="navigate('create')" title="click for details">
+                <div class="card-body" style="display: flex; flex-direction: column; justify-content:space-between">
+                    <div class="">
+                        <h5 class="card-title text-success fw-bold pb-3">Create Collection</h5>
+                        <p class="card-text text-center text-muted">Create a new collection to add your movies!</p>
+                    </div>
+                    <div class="text-end">
+                        <button class="btn btn-lg btn-success" routerLink="/collections/create"
+                            routerLinkActive="active"><i class="bi bi-plus-lg"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 mx-auto">
+            <div class="card m-3 bg-light border rounded border-success border-3" style="width:300px;height:200px"
+                (click)="navigate('rated')" title="click for details">
+                <div class="card-body" style="display: flex; flex-direction: column; justify-content:space-between">
+                    <div class="">
+                        <h5 class="card-title text-success pb-3">Rated movies</h5>
+                        <p class="card-text text-muted text-center">A collection of rated movies in this session</p>
+                    </div>
+                    <div class="text-end">
+                        <button class="btn btn-success" routerLink="/collections/rated" routerLinkActive="active">See
+                            details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if(emptyFlag){
+    <div class="my-5">
+        <div class="alert alert-warning alert-dismissible mb-5 mx-auto" role="alert" style="width:fit-content">
+            <h4 class="mb-1">Collections deleted</h4>
+            <div class="mb-2"><i class="bi bi-check-circle-fill mx-2"></i>Your collections were <span
+                    class="fw-bold">deleted</span> successfully!
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    }
+    @if(deletionFlag){
+    <div class="my-5">
+        <div class="alert alert-warning alert-dismissible mb-5 mx-auto" role="alert" style="width:fit-content">
+            <h4 class="mb-1">Collection deleted</h4>
+            <div class="mb-2"><i class="bi bi-check-circle-fill mx-2"></i>Your collection <span
+                    class="fw-bold">{{deletedCollectionTitle}}</span> was <span class="fw-bold">deleted</span>
+                successfully!
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    }
+    <div class="row card-container">
+        @if(collections){
+        <ul class="col-sm-4 mx-auto" *ngFor="let collection of collections">
+            <div class="col-sm-2 mx-5">
+                <div class="card m-3" style="width:300px;height:200px">
+                    <div class="m-1 text-end">
+                        <button type="button" class="btn btn-sm btn-danger"
+                            (click)="removeCollection(collection.title)"><i class="bi bi-trash-fill ms-1"></i></button>
+                    </div>
+                    <div class="card-body" style="display: flex; flex-direction: column; justify-content:space-between"
+                        (click)="seeCollection(collection.title)" title="click for details">
+                        <div class="">
+                            <h5 class="card-title text-success">{{collection.title}}</h5>
+                            <p class="card-text text-truncate text-muted">{{collection.description}}</p>
+                        </div>
+                        <div class="text-end">
+                            <button class="btn btn-success">See
+                                details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ul>
+        }
+    </div>
+</div>

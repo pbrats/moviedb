@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MoviesService } from '../../service/movies.service';
 import { CommonModule } from '@angular/common';
+import { CollectionsPopupComponent } from '../collections-popup/collections-popup.component';
 
 @Component({
   selector: 'app-genres',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CollectionsPopupComponent],
   templateUrl: './genres.component.html',
   styleUrl: './genres.component.css'
 })
@@ -22,6 +23,7 @@ export class GenresComponent {
   endIndex = 0;
   pageSize = 20; // Number of movies per page default by API
   totalMovies: any;
+  selectedId!: number;
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private movieService: MoviesService) { }
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(
@@ -110,5 +112,9 @@ export class GenresComponent {
   moviePage(id: number) {
     console.log('details id:', id);
     this.router.navigate(['movies', id]);
+  }
+  addToCollection(id: number) {
+    this.selectedId = id
+    console.log('movie id to add to collection :', id);
   }
 }

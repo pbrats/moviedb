@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MoviesService } from '../../service/movies.service';
+import { CollectionsPopupComponent } from '../collections-popup/collections-popup.component';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, RouterLinkActive, ],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, RouterLinkActive, CollectionsPopupComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
@@ -19,7 +20,7 @@ export class SearchComponent {
   displayedMovies: any;
   currentPage = 1; // set initial page the 1st
   totalPages = 0; // total pages of the data from API
-  pageSize =20; // Number of movies per page default by API
+  pageSize = 20; // Number of movies per page default by API
   startIndex = 0;
   endIndex = 0;
   totalMovies = 0; //total movies matching the search
@@ -27,7 +28,7 @@ export class SearchComponent {
   hasLoadedresults: boolean = false; //boolean to show spinner loading if the results aren't fetched
   currentUrl: string = '';
   collectionsForm!: FormGroup;
-  selectedMoviesId:  number[] = [];
+  selectedMoviesId: number[] = [];
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private searchMovieService: MoviesService, private formBuilder: FormBuilder) { }
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(
@@ -38,36 +39,36 @@ export class SearchComponent {
       });
     if (this.searchQuery) {
       this.flag = true;
-      this.loadSearchResults(this.searchQuery,this.currentPage);
+      this.loadSearchResults(this.searchQuery, this.currentPage);
     }
     this.searchForm = this.formBuilder.group({
       searchData: new FormControl(this.searchQuery || '', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*'), Validators.minLength(3)])
     });
     this.setFormValues();
   }
-  setFormValues(){
+  setFormValues() {
     this.collectionsForm = new FormGroup({
       movieChecked: new FormControl("", Validators.required)
     });
   }
   onSelect() {
     console.log("input value:", this.collectionsForm.value);
-  if(this.selectedMoviesId.length>0){
-    console.log("selectedMoviesId:",this.selectedMoviesId);
-    this.collectionsForm.reset();
-  }
-  
+    if (this.selectedMoviesId.length > 0) {
+      console.log("selectedMoviesId:", this.selectedMoviesId);
+      this.collectionsForm.reset();
+    }
+
   }
   onChange(event: any) {
-    console.log("selected movies ids length:",this.selectedMoviesId.length);
-    if(this.selectedMoviesId.length>0){
-      console.log("new id to add :",String(event.target.value));
+    console.log("selected movies ids length:", this.selectedMoviesId.length);
+    if (this.selectedMoviesId.length > 0) {
+      console.log("new id to add :", String(event.target.value));
       this.selectedMoviesId.push(event.target.value);
-      console.log("selected movies ids :",this.selectedMoviesId);
-    }else{
-    this.selectedMoviesId= [event.target.value];
-    console.log("selected movies ids",this.selectedMoviesId);
-  }
+      console.log("selected movies ids :", this.selectedMoviesId);
+    } else {
+      this.selectedMoviesId = [event.target.value];
+      console.log("selected movies ids", this.selectedMoviesId);
+    }
   }
   onSubmit() {
     console.log("input value:", this.searchForm.get("searchData")?.value);
@@ -76,36 +77,36 @@ export class SearchComponent {
     this.router.navigate(['/search'], { queryParams: { query: this.searchQuery } });
     if (this.searchQuery) {
       this.flag = true;
-      this.loadSearchResults(this.searchQuery,1);
+      this.loadSearchResults(this.searchQuery, 1);
     }
   }
-  loadSearchResults(query:string, page:number){
+  loadSearchResults(query: string, page: number) {
     this.searchMovieService.getMoviebyQuery(query, page).subscribe({
-        next: searchMovies => {
-          setTimeout(() => {
-            this.searchMovies = searchMovies;
-            console.log(searchMovies);
-            this.totalPages = this.searchMovies.total_pages;
-            console.log("total pages:", this.totalPages);
-            this.totalMovies = this.searchMovies.total_results;
-            console.log("total results:", this.totalMovies);
-            this.startIndex = (page - 1) * this.pageSize;
+      next: searchMovies => {
+        setTimeout(() => {
+          this.searchMovies = searchMovies;
+          console.log(searchMovies);
+          this.totalPages = this.searchMovies.total_pages;
+          console.log("total pages:", this.totalPages);
+          this.totalMovies = this.searchMovies.total_results;
+          console.log("total results:", this.totalMovies);
+          this.startIndex = (page - 1) * this.pageSize;
           console.log("startIndex:", this.startIndex);
           this.endIndex = Math.min(this.startIndex + this.pageSize - 1, this.totalMovies - 1);
           console.log("endIndex:", this.endIndex);
-            this.hasLoadedresults = true;
-          }, 10);
-        }
-      });
+          this.hasLoadedresults = true;
+        }, 10);
+      }
+    });
   }
- 
+
   setPage(page: number): void {
     if (page < 1 || page > this.totalPages) {
       return;
     }
     this.currentPage = page;
     console.log("currentPage:", this.currentPage);
-    this.loadSearchResults(this.searchQuery,this.currentPage);
+    this.loadSearchResults(this.searchQuery, this.currentPage);
     console.log("displayedMovies:", this.searchMovies);
   }
   previousPage(): void {

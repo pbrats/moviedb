@@ -31,11 +31,11 @@ export class MoviesService {
     return this.http.get(url);
   }
 
-  getMoviesByGenres(genreId:number, page:number){
+  getMoviesByGenres(genreId: number, page: number) {
     const url = `${this.genreMoviesUrl}?page=${page}&with_genres=${genreId}&api_key=${this.apiKey}`;
     return this.http.get(url);
   }
-  
+
   getNowMovies(region: any, page: number) {
     const url = `${this.nowPlayingUrl}?page=${page}&region=${region}&api_key=${this.apiKey}`;
     return this.http.get(url);
@@ -44,15 +44,15 @@ export class MoviesService {
     const url = `${this.upcomingUrl}?page=${page}&region=${region}&api_key=${this.apiKey}`;
     return this.http.get(url);
   }
-  getTrending(time:string, page: number) {
+  getTrending(time: string, page: number) {
     const url = `${this.trendingUrl}/${time}?page=${page}&api_key=${this.apiKey}`;
     return this.http.get(url);
   }
-  getPopular(page:number){
+  getPopular(page: number) {
     const url = `${this.popularUrl}?page=${page}&api_key=${this.apiKey}`;
     return this.http.get(url);
   }
-  getTop(page:number){
+  getTop(page: number) {
     const url = `${this.topUrl}?page=${page}&api_key=${this.apiKey}`;
     return this.http.get(url);
   }

@@ -5,7 +5,8 @@
 .form-range::-moz-range-thumb {
     background-color: #28a745;
 }
+
 ul {
     list-style: none;
     margin-right: 30px;
-  }
+}

@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MoviesService } from '../../service/movies.service';
+import { CollectionsPopupComponent } from '../collections-popup/collections-popup.component';
 
 @Component({
   selector: 'app-trending',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, CollectionsPopupComponent],
   templateUrl: './trending.component.html',
   styleUrl: './trending.component.css'
 })
@@ -24,34 +25,35 @@ export class TrendingComponent {
   totalMovies: any;
   buttonDay!: boolean;
   buttonWeek!: boolean;
+  selectedId!: number;
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private movieService: MoviesService, private formBuilder: FormBuilder) { }
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(
       (params: any) => {
         console.log("params:", params);
-        if(params['time']!==undefined){
+        if (params['time'] !== undefined) {
           this.time = params['time'];
         }
         console.log("this time:", this.time);
-        if(this.time=='day'){
+        if (this.time == 'day') {
           this.buttonDay = true;
           this.buttonWeek = false;
-        }else if(this.time=='week'){
+        } else if (this.time == 'week') {
           this.buttonWeek = true;
           this.buttonDay = false;
         }
       });
-      this.timeForm = this.formBuilder.group({
-        selectedRegion: [this.time ||'day']
-      });
+    this.timeForm = this.formBuilder.group({
+      selectedRegion: [this.time || 'day']
+    });
     this.loadTrending(this.time, this.currentPage);
   }
-  
+
   onClickTime(buttonName: string) {
     console.log('Selected time :', buttonName);
-      this.time = buttonName;
-      this.router.navigate(['trending'],{ queryParams: { time: this.time} });
-    this.currentPage =1;
+    this.time = buttonName;
+    this.router.navigate(['trending'], { queryParams: { time: this.time } });
+    this.currentPage = 1;
     this.loadTrending(this.time, this.currentPage);
   }
   loadTrending(time: string, page: number) {
@@ -64,10 +66,10 @@ export class TrendingComponent {
           // this.totalPages = this.trending.total_pages; 
           // the api says by default "total_pages": 1000 but only gets 500 so
           this.totalPages = 500;
-          console.log("total pages: ",this.totalPages);
+          console.log("total pages: ", this.totalPages);
           // this.totalMovies = this.trending.total_results;
           // the api says by default  "total_results": 20000 but only gets 10000 so
-          this.totalMovies =10000;
+          this.totalMovies = 10000;
           console.log("total results:", this.totalMovies);
           this.startIndex = (page - 1) * this.pageSize;
           console.log("startIndex:", this.startIndex);
@@ -83,7 +85,7 @@ export class TrendingComponent {
     }
     this.currentPage = page;
     console.log("currentPage:", this.currentPage);
-    this.loadTrending(this.time,this.currentPage);
+    this.loadTrending(this.time, this.currentPage);
     console.log("displayedMovies:", this.trending);
   }
   previousPage(): void {
@@ -120,5 +122,9 @@ export class TrendingComponent {
   moviePage(id: number) {
     console.log('details id:', id);
     this.router.navigate(['movies', id]);
+  }
+  addToCollection(id: number) {
+    this.selectedId = id
+    console.log('movie id to add to collection :', id);
   }
 }

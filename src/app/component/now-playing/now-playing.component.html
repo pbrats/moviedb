@@ -28,7 +28,8 @@
         <h6 class="mb-5"><span class="text-success fw-bold fs-5">{{nowMovies.total_results}} </span>movies playing from:
             <span class="text-success fst-italic fs-5">{{nowMovies.dates.minimum}}</span> to <span
                 class="text-success fst-italic fs-5">
-                {{nowMovies.dates.maximum}}</span></h6>
+                {{nowMovies.dates.maximum}}</span>
+        </h6>
         <h6 class="text-end text-secondary fst-italic">Displaying: <span
                 class="fw-bold text-dark">{{startIndex+1}}</span> to <span
                 class="fw-bold text-dark">{{endIndex+1}}</span></h6>
@@ -38,7 +39,14 @@
                     <div>
                         <img [src]='"https://image.tmdb.org/t/p/w300"+(nowMovie.poster_path)'
                             onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
-                            alt="{{ nowMovie.title }} poster path" placeholder (click)="moviePage(nowMovie.id)" title="click for details">
+                            alt="{{ nowMovie.title }} poster path" placeholder (click)="moviePage(nowMovie.id)"
+                            title="click for details">
+                        <div style="display: flex; flex-direction: row; justify-content:flex-end;">
+                            <button class="btn btn-sm btn-success col-sm-2 me-1 mt-1" type="button"
+                                data-bs-toggle="modal" data-bs-target="#collections"
+                                (click)="addToCollection(nowMovie.id)"><i class="bi bi-bookmark-plus"></i></button>
+                            <app-collections-popup [id]="selectedId" />
+                        </div>
                     </div>
                     <div class="card-body"
                         style="display: flex; flex-direction: column; justify-content:space-between;">
@@ -73,7 +81,7 @@
         </div>
     </div>
     }
-}@else{
+    }@else{
     <div class="py-5 m-5">
         <h1 class="text-success text-center fs-3 fst-italic fw-normal">Loading Results ..</h1>
         <br>

@@ -1,0 +1,77 @@
+<div class="modal fade" id="collections" tabindex="-1" aria-labelledby="collections" aria-hidden="true">
+    <div class="modal-dialog mb-0">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title text-success" id="collections">Add<span class="fst-italic fw-bold">
+                        {{movieDetails.original_title}}</span> to a collection</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-1">
+                    <div>
+                        <img [src]='"https://image.tmdb.org/t/p/w300"+(movieDetails.poster_path)'
+                            onerror="this.src='../assets/images/no-poster.png';" class="card-img-top mb-2"
+                            alt="{{ movieDetails.original_title }} poster path" style="width: 140px; height: 100%"
+                            placeholder>
+                        @if(hasCollections) {
+                        <h4 class="fst-italic fw-bold my-2">Available Collections: </h4>
+                        }
+                        @if(showSuccessMessage && !flagExists){
+                        <div class="mx-5 pt-2">
+                            <div class="alert alert-success alert-dismissible mx-auto" role="alert"
+                                style="width:fit-content">
+                                <h4 class="text-success"></h4>
+                                <div class="mb-2"><i class="bi bi-check-circle-fill mx-2"></i>Movie was added
+                                    successfully to <span class="fst-italic fw-bold">{{selectedCollectionTitle}}</span>
+                                    collection!</div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        </div>
+                        }
+                        @if(flagExists){
+                        <div class="mx-5 pt-2">
+                            <div class="alert alert-warning alert-dismissible mx-auto" role="alert"
+                                style="width:fit-content">
+                                <h4 class="text-success"></h4>
+                                <div class="mb-2"><i class="bi bi-exclamation-circle-fill mx-2"></i>Movie exists in
+                                    <span class="fst-italic fw-bold">{{selectedCollectionTitle}}</span> collection!
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        </div>
+                        }
+                        @if(hasCollections){
+                        <div class="row mx-auto my-2">
+                            <ul class="col " *ngFor="let collection of collections">
+                                <div class="col-sm-4 ">
+                                    <div class="card m-3" style="width:150px;height:fit-content">
+                                        <div class="card-body"
+                                            style="display: flex; flex-direction: column; justify-content:space-between">
+                                            <div class="">
+                                                <h5 class="card-title">{{collection.title}}</h5>
+                                                <p class="card-text text-muted text-truncate">{{collection.description}}
+                                                </p>
+                                            </div>
+                                            <div class="text-end">
+                                                <button class="btn btn-sm btn-success"
+                                                    (click)="addToCollection(collection.title)"><i
+                                                        class="bi bi-plus-lg"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
+                        }@else{
+                        <div class="container my-5">
+                            <h4 class="text-danger fst-italic">No available Collections!</h4>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

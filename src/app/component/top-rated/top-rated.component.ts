@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MoviesService } from '../../service/movies.service';
 import { Router } from '@angular/router';
+import { CollectionsPopupComponent } from '../collections-popup/collections-popup.component';
 
 @Component({
   selector: 'app-top-rated',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CollectionsPopupComponent],
   templateUrl: './top-rated.component.html',
   styleUrl: './top-rated.component.css'
 })
@@ -19,19 +20,20 @@ export class TopRatedComponent {
   endIndex = 0;
   pageSize = 20; // Number of movies per page default by API
   totalMovies: any;
+  selectedId!: number;
   constructor(private router: Router, private movieService: MoviesService) { }
   ngOnInit() {
     this.loadTop(1);
   }
-  loadTop(page:number){
+  loadTop(page: number) {
     this.movieService.getTop(page).subscribe({
       next: top => {
         setTimeout(() => {
           this.top = top;
-          this.hasLoadedTop= true;
+          this.hasLoadedTop = true;
           console.log(top);
-          this.totalPages = this.top.total_pages; 
-          console.log("total pages: ",this.totalPages);
+          this.totalPages = this.top.total_pages;
+          console.log("total pages: ", this.totalPages);
           this.totalMovies = this.top.total_results;
           console.log("total results:", this.totalMovies);
           this.startIndex = (page - 1) * this.pageSize;
@@ -85,5 +87,9 @@ export class TopRatedComponent {
   moviePage(id: number) {
     console.log('details id:', id);
     this.router.navigate(['movies', id]);
+  }
+  addToCollection(id: number) {
+    this.selectedId = id
+    console.log('movie id to add to collection :', id);
   }
 }

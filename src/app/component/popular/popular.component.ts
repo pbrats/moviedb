@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MoviesService } from '../../service/movies.service';
 import { Router } from '@angular/router';
+import { CollectionsPopupComponent } from '../collections-popup/collections-popup.component';
 
 @Component({
   selector: 'app-popular',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CollectionsPopupComponent],
   templateUrl: './popular.component.html',
   styleUrl: './popular.component.css'
 })
@@ -19,24 +20,25 @@ export class PopularComponent {
   endIndex = 0;
   pageSize = 20; // Number of movies per page default by API
   totalMovies: any;
+  selectedId!: number;
   constructor(private router: Router, private movieService: MoviesService) { }
   ngOnInit() {
     this.loadPopular(1);
   }
-  loadPopular(page:number){
+  loadPopular(page: number) {
     this.movieService.getPopular(page).subscribe({
       next: popular => {
         setTimeout(() => {
           this.popular = popular;
-          this.hasLoadedPopular= true;
+          this.hasLoadedPopular = true;
           console.log(popular);
           // this.totalPages = this.popular.total_pages; 
           // the api says by default "total_pages": 1000 but only gets max 500 so
           this.totalPages = 500;
-          console.log("total pages: ",this.totalPages);
+          console.log("total pages: ", this.totalPages);
           // this.totalMovies = this.popular.total_results;
           // the api says by default  "total_results": 20000 but only gets max 10000 so
-          this.totalMovies =10000;
+          this.totalMovies = 10000;
           console.log("total results:", this.totalMovies);
           this.startIndex = (page - 1) * this.pageSize;
           console.log("startIndex:", this.startIndex);
@@ -89,5 +91,9 @@ export class PopularComponent {
   moviePage(id: number) {
     console.log('details id:', id);
     this.router.navigate(['movies', id]);
+  }
+  addToCollection(id: number) {
+    this.selectedId = id
+    console.log('movie id to add to collection :', id);
   }
 }

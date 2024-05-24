@@ -1,0 +1,57 @@
+<div class="container my-5">
+    <div class="mx-5">
+        <h1 class="text-success mb-5">Collection Details:</h1>
+        @if(selectedCollection){
+        <div *ngFor="let detail of selectedCollection">
+            <h3 class="mb-5"><span class="text-success">Title: </span> <span class="fst-italic">{{detail.title}}</span>
+            </h3>
+            <p><span class="fw-bold mb-5"><span class="text-success">Description: </span> {{detail.description}}</span>
+            </p>
+        </div>
+        @if(collectionsMovies.length>0){
+        <div class="row card-container">
+            <div class="col-3 m-3 mx-auto text-center" *ngFor="let movie of collectionsMovies">
+                <div class="card h-100">
+                    <div>
+                        <img [src]='"https://image.tmdb.org/t/p/w300"+(movie.poster_path)'
+                            onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
+                            alt="{{ movie.title }} poster path" placeholder (click)="moviePage(movie.id)"
+                            title="click for details">
+                    </div>
+                    <div style="display: flex; flex-direction: row; justify-content:flex-end;">
+                        <button class="btn btn-sm btn-danger text-end" type="button"
+                            (click)="removeFromCollection(movie.id)"><i class="bi bi-trash-fill ms-1"></i></button>
+                    </div>
+                    <div class="card-body"
+                        style="display: flex; flex-direction: column; justify-content:space-between;">
+                        <div class="mb-3">
+                            <h5 class="card-title text-success fw-bold">{{ movie.title }}</h5>
+                            <p class="card-text "><span class="text-success">Average vote :</span>
+                                {{movie.vote_average}}</p>
+                        </div>
+                        <div>
+                            <!-- <button class="btn btn-sm btn-success" type="button" data-bs-toggle="modal" 
+                                            data-bs-target="#movieDetails" (click)="onMovieClick(movie.id)">{{ movie.title }}</button>
+                                        <app-movie-details [id]="selectedId" /> -->
+                            <!-- option 1 routes -->
+                            <!-- <a  [routerLink]="(movie.id)">Show modal</a> -->
+                            <!-- option 2 routes -->
+                            <!-- <a class="link-success link-offset-1 link-offset-2-hover link-underline-opacity-75 link-underline-opacity-100-hover" [routerLink]="(movie.id)+'/movies'">Show modal</a> -->
+                            <!-- <button class="btn btn-sm col-sm-12 btn-success" type="button"
+                                    (click)="onMovieClick(movie.id)">{{
+                                    movie.title }}</button>
+                                <router-outlet /> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }@else{
+        <div class="container my-5 py-5">
+            <h5 class="text-danger fw-bold fst-italic text-center pt-3 mb-2">No movies have been added to <span
+                    class="fst-italic fs-2">{{selectedCollectionTitle}} </span>Collection yet!</h5>
+        </div>
+        }
+        }
+    </div>
+</div>

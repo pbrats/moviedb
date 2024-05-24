@@ -89,12 +89,12 @@
                 </form>
             </div>
         </div>
-    <div class="ms-5 my-3" style="display: flex; flex-direction:row; justify-content: space-between;">
-        <h6>
-            <span class="text-success fw-bold">{{nowMovies.total_results}}</span> movies playing from: <span
-                class="text-success fst-italic">{{nowMovies.dates.minimum}}</span> to <span
-                class="text-success fst-italic">{{nowMovies.dates.maximum}}</span>
-        </h6>
+        <div class="ms-5 my-3" style="display: flex; flex-direction:row; justify-content: space-between;">
+            <h6>
+                <span class="text-success fw-bold">{{nowMovies.total_results}}</span> movies playing from: <span
+                    class="text-success fst-italic">{{nowMovies.dates.minimum}}</span> to <span
+                    class="text-success fst-italic">{{nowMovies.dates.maximum}}</span>
+            </h6>
             <button class="btn btn-sm btn-outline-success" (click)="showAll(selectForm.get('selectedRegion')?.value)">
                 Show All</button>
         </div>
@@ -105,8 +105,8 @@
                 <div class="card-body text-center shadow" style="width:max-content">
                     <img [src]='"https://image.tmdb.org/t/p/w300"+(nowMovie.poster_path)'
                         onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
-                        alt="{{ nowMovie.title }} poster path" placeholder style="height:300px ; width:fit-content" (click)="moviePage(nowMovie.id)" title="click for details">
-                    <!-- <h5 class="card-title fw-bold text-success">{{nowMovie.original_title}}</h5> -->
+                        alt="{{ nowMovie.title }} poster path" placeholder style="height:300px ; width:fit-content"
+                        (click)="moviePage(nowMovie.id)" title="click for details">
                     <h5 class="card-title text-success fw-bold" style="width:250px">{{nowMovie.title }}</h5>
                     <p class="card-text "><span class="text-success">Average vote :</span>{{nowMovie.vote_average}}</p>
                     <!-- <p>id: {{ nowMovie.id}}</p> -->
@@ -132,8 +132,8 @@
     <div class="popular my-5">
         @if(hasLoadedPopular){
         @if(popular){
-           <div class="mb-3" style="display:flex;flex-direction: row; justify-content:space-between;">
-        <h2 class="text-success">Popular</h2>
+        <div class="mb-3" style="display:flex;flex-direction: row; justify-content:space-between;">
+            <h2 class="text-success">Popular</h2>
             <button class="btn btn-sm btn-outline-success" routerLink="/popular" routerLinkActive="active">
                 Show All</button>
         </div>
@@ -144,8 +144,8 @@
                 <div class="card-body text-center shadow" style="width:max-content">
                     <img [src]='"https://image.tmdb.org/t/p/w300"+(movie.poster_path)'
                         onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
-                        alt="{{ movie.title }} poster path" placeholder style="height:300px ; width:fit-content" (click)="moviePage(movie.id)" title="click for details">
-                    <!-- <h5 class="card-title fw-bold text-success">{{nowMovie.original_title}}</h5> -->
+                        alt="{{ movie.title }} poster path" placeholder style="height:300px ; width:fit-content"
+                        (click)="moviePage(movie.id)" title="click for details">
                     <h5 class="card-title text-success fw-bold" style="width:250px">{{movie.title }}</h5>
                     <p class="card-text "><span class="text-success">Average vote :</span>{{movie.vote_average}}</p>
                     <!-- <p>id: {{ nowMovie.id}}</p> -->
@@ -193,10 +193,10 @@
                     </div>
                 </form>
             </div>
-        <div class="my-1" style="display:flex;flex-direction: row; justify-content:flex-end;">
-            <button class="btn btn-sm btn-outline-success" (click)="showTrending(timeForm.get('time')?.value)">
-                Show All</button>
-        </div>
+            <div class="my-1" style="display:flex;flex-direction: row; justify-content:flex-end;">
+                <button class="btn btn-sm btn-outline-success" (click)="showTrending(timeForm.get('time')?.value)">
+                    Show All</button>
+            </div>
         </div>
         <div class="card-group card-group-scroll">
             @for (trend of trending.results; track $index){
@@ -205,8 +205,8 @@
                 <div class="card-body text-center shadow" style="width:max-content">
                     <img [src]='"https://image.tmdb.org/t/p/w300"+(trend.poster_path)'
                         onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
-                        alt="{{ trend.title }} poster path" placeholder style="height:300px ; width:fit-content" (click)="moviePage(trend.id)" title="click for details">
-                    <!-- <h5 class="card-title fw-bold text-success">{{nowMovie.original_title}}</h5> -->
+                        alt="{{ trend.title }} poster path" placeholder style="height:300px ; width:fit-content"
+                        (click)="moviePage(trend.id)" title="click for details">
                     <h5 class="card-title text-success fw-bold" style="width:250px">{{trend.title }}</h5>
                     <p class="card-text "><span class="text-success">Average vote :</span>{{trend.vote_average}}</p>
                     <!-- <p>id: {{ nowMovie.id}}</p> -->
@@ -244,8 +244,8 @@
                 <div class="card-body text-center shadow" style="width:max-content">
                     <img [src]='"https://image.tmdb.org/t/p/w300"+(movie.poster_path)'
                         onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
-                        alt="{{ movie.title }} poster path" placeholder style="height:300px ; width:fit-content" (click)="moviePage(movie.id)" title="click for details">
-                    <!-- <h5 class="card-title fw-bold text-success">{{nowMovie.original_title}}</h5> -->
+                        alt="{{ movie.title }} poster path" placeholder style="height:300px ; width:fit-content"
+                        (click)="moviePage(movie.id)" title="click for details">
                     <h5 class="card-title text-success fw-bold" style="width:250px">{{movie.title }}</h5>
                     <p class="card-text "><span class="text-success">Average vote :</span>{{movie.vote_average}}</p>
                     <!-- <p>id: {{ nowMovie.id}}</p> -->
@@ -289,13 +289,14 @@
                 </form>
             </div>
         </div>
-    <div class="ms-5 my-3" style="display: flex; flex-direction:row; justify-content: space-between;">
-        <h6>
-            <span class="text-success fw-bold">{{upcoming.total_results}}</span> movies playing from: <span
-                class="text-success fst-italic">{{upcoming.dates.minimum}}</span> to <span
-                class="text-success fst-italic">{{upcoming.dates.maximum}}</span>
-        </h6>
-            <button class="btn btn-sm btn-outline-success" (click)="showAll2(select2Form.get('selectedRegion2')?.value)">
+        <div class="ms-5 my-3" style="display: flex; flex-direction:row; justify-content: space-between;">
+            <h6>
+                <span class="text-success fw-bold">{{upcoming.total_results}}</span> movies playing from: <span
+                    class="text-success fst-italic">{{upcoming.dates.minimum}}</span> to <span
+                    class="text-success fst-italic">{{upcoming.dates.maximum}}</span>
+            </h6>
+            <button class="btn btn-sm btn-outline-success"
+                (click)="showAll2(select2Form.get('selectedRegion2')?.value)">
                 Show All</button>
         </div>
         <div class="card-group card-group-scroll">
@@ -305,8 +306,8 @@
                 <div class="card-body text-center shadow" style="width:max-content">
                     <img [src]='"https://image.tmdb.org/t/p/w300"+(movie.poster_path)'
                         onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
-                        alt="{{ movie.title }} poster path" placeholder style="height:300px ; width:fit-content" (click)="moviePage(movie.id)" title="click for details">
-                    <!-- <h5 class="card-title fw-bold text-success">{{nowMovie.original_title}}</h5> -->
+                        alt="{{ movie.title }} poster path" placeholder style="height:300px ; width:fit-content"
+                        (click)="moviePage(movie.id)" title="click for details">
                     <h5 class="card-title text-success fw-bold" style="width:250px">{{movie.title }}</h5>
                     <p class="card-text "><span class="text-success">Average vote :</span>{{movie.vote_average}}</p>
                     <!-- <p>id: {{ nowMovie.id}}</p> -->

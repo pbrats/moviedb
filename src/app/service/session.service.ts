@@ -16,12 +16,12 @@ export class SessionService {
     const url = `${this.apiUrl}?api_key=${this.apiKey}`;
     return this.http.get(url);
   }
-  rateMovie(movieId: number, rating: number,guestSessionId:string): Observable<any> {
+  rateMovie(movieId: number, rating: number, guestSessionId: string): Observable<any> {
     const url = `${this.rateUrl}/${movieId}/rating?api_key=${this.apiKey}&guest_session_id=${guestSessionId}`;
     const body = { value: rating };
     return this.http.post(url, body);
   }
-  seeRates(guestSessionId:string) {
+  seeRates(guestSessionId: string) {
     const url = `${this.seeRateUrl}/${guestSessionId}/rated/movies?api_key=${this.apiKey}`;
     return this.http.get(url);
   }
