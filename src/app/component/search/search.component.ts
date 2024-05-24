@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MoviesService } from '../../service/movies.service';
 import { CollectionsPopupComponent } from '../collections-popup/collections-popup.component';
 import { MultipleIdsPopupComponent } from '../multiple-ids-popup/multiple-ids-popup.component';
@@ -9,7 +9,7 @@ import { MultipleIdsPopupComponent } from '../multiple-ids-popup/multiple-ids-po
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, RouterLinkActive, CollectionsPopupComponent, MultipleIdsPopupComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, RouterLinkActive, CollectionsPopupComponent, MultipleIdsPopupComponent, RouterOutlet],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
@@ -27,7 +27,6 @@ export class SearchComponent {
   totalMovies = 0; //total movies matching the search
   selectedId!: number;
   hasLoadedresults: boolean = false; //boolean to show spinner loading if the results aren't fetched
-  currentUrl: string = '';
   collectionsForm!: FormGroup;
   selectedMoviesId: number[] = [];
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private searchMovieService: MoviesService, private formBuilder: FormBuilder) { }
@@ -57,7 +56,7 @@ export class SearchComponent {
     if (this.selectedMoviesId.length > 0) {
       console.log("selectedMoviesId:", this.selectedMoviesId);
       this.collectionsForm.reset();
-      console.log("after reset form values:",this.collectionsForm.value);
+      console.log("after reset form values:", this.collectionsForm.value);
     }
   }
   onChange(event: any) {
@@ -143,18 +142,7 @@ export class SearchComponent {
   }
   onMovieClick(id: number) {
     console.log("id search:", id);
-    //option 1 routes
     this.router.navigate(['search/movies', id]);
-    //option 2 routes
-    //  this.router.navigate(["search", id ,"movies"]);
-    //if i want the url to be same as would get with this.router.navigate(["movies", id]); but without redirecting
-    this.currentUrl = this.router.url;
-    console.log("current url", this.currentUrl);
-    // const baseUrl = currentUrl.split('/')[0];
-    // console.log("baseurl", baseUrl);
-    // const newUrl = baseUrl + `movies/${id}`;
-    // console.log("new  url", newUrl);
-    // window.history.replaceState({}, '', newUrl); //set the url to movies/id without redirect
   }
   moviePage(id: number) {
     console.log('details id:', id);

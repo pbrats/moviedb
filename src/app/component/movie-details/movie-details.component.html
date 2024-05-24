@@ -1,0 +1,127 @@
+@if(!errorFlag){
+@if(movieDetails){
+@if(hasLoadedmovie){
+<div class="modal-dialog" style="width: 700px">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title text-center text-success" id="movieDetails">{{ movieDetails.original_title }}</h1>
+        </div>
+        <div class="modal-body">
+            <div class="text-center mb-5">
+                <img [src]='"https://image.tmdb.org/t/p/w300"+(movieDetails.poster_path)'
+                    onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
+                    alt="{{ movieDetails.original_title }} poster path" style="width: 300px; height: 100%" placeholder>
+            </div>
+            <div class="text-center">
+                <div class="card text-bg-light">
+                    <div class="card-header fst-italic fw-bold text-success">Overview</div>
+                    <div class="card-body">
+                        <p class="card-text">{{movieDetails.overview }}</p>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="card border-light col-sm-4 my-2">
+                        <div class="card-header fst-italic fw-bold text-success">Release date</div>
+                        <div class="card-body">
+                            <p class="card-text">{{ movieDetails.release_date }}</p>
+                        </div>
+                    </div>
+                    <div class="card border-light col-sm-4 my-2">
+                        <div class="card-header fst-italic fw-bold text-success">Budget</div>
+                        <div class="card-body">
+                            <p class="card-text">{{ movieDetails.budget | number:'1.2-2' }} $</p>
+                        </div>
+                    </div>
+                    <div class="card border-light col-sm-4 my-2">
+                        <div class="card-header fst-italic fw-bold text-success">Revenue</div>
+                        <div class="card-body">
+                            <p class="card-text">{{ movieDetails.revenue | number:'1.2-2'}} $</p>
+                        </div>
+                    </div>
+                    <div class="card border-light col-sm-4 my-2">
+                        <div class="card-header fst-italic fw-bold text-success">Average vote</div>
+                        <div class="card-body">
+                            <p class="card-text">{{ movieDetails.vote_average }}</p>
+                        </div>
+                    </div>
+                    <div class="card border-light col-sm-4 my-2">
+                        <div class="card-header fst-italic fw-bold text-success">Vote count</div>
+                        <div class="card-body">
+                            <p class="card-text">{{ movieDetails.vote_count }}</p>
+                        </div>
+                    </div>
+                    <div class="card border-light col-sm-4 my-2">
+                        <div class="card-header fst-italic fw-bold text-success">Popularity</div>
+                        <div class="card-body">
+                            <p class="card-text">{{ movieDetails.popularity }}</p>
+                        </div>
+                    </div>
+                    <div class="card border-light col-sm-4 my-2">
+                        <div class="card-header fst-italic fw-bold text-success">Spoken languages</div>
+                        <div class="card-body">
+                            <ul *ngFor="let lang of movieDetails.spoken_languages">
+                                <li>
+                                    <p class="card-text">{{ lang.name }}</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rating mb-5 card text-bg-success bg-opacity-75 border-success col-sm-10 mx-auto">
+            <div class="card-header fst-italic fw-bold text-center">
+                <label for="rating" class="form-label fs-4">Rate this movie
+                </label>
+            </div>
+            <div class="card-body">
+                @if(showSuccessMessage){
+                <div class="alert alert-success alert-dismissible my-3 mx-auto" role="alert" style="width:fit-content">
+                    <h4 class="text-success">{{response.status_message}}</h4>
+                    <div><i class="bi bi-check-circle-fill mx-2"></i>Your rating was successfully submitted!</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                }
+                <form [formGroup]="ratingForm" (submit)="onSubmit()">
+                    <div class="my-2 d-flex mx-auto col-sm-8">
+                        <p class="badge bg-secondary">0</p>
+                        <input type="range" formControlName="rating" class="form-range mx-2" min="0.5" max="10"
+                            step="0.5" id="rating" title="rate movie">
+                        @if(!ratingForm.get('rating')?.value){
+                        <p class="badge bg-secondary">10 <i class="bi bi-star-fill"></i></p>
+                        }
+                        @if(ratingForm.get('rating')?.value){
+                        <p class="badge bg-secondary"> {{ ratingForm.get('rating')?.value }} <i
+                                class="bi bi-star-fill"></i></p>
+                        }
+                    </div>
+                    <button type="submit" class="btn btn-dark d-flex mx-auto" [disabled]=ratingForm.invalid>
+                        Submit
+                        rate</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- </div> -->
+}@else{
+<div class="m-5">
+    <h1 class="text-success text-center fs-3 fst-italic fw-normal">Loading Results ..</h1>
+    <br>
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-success align-center" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden ">Loading...</span>
+        </div>
+    </div>
+</div>
+}
+}
+}@else {
+<div class="container my-5 p-5">
+    @if(errorMessage){
+    <h1 class="text-danger fw-bold fst-italic text-center">{{errorMessage}}</h1>
+    }@else{
+    <h2 class="text-danger fw-bold fst-italic text-center">No matching results!</h2>
+    }
+</div>
+}

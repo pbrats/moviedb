@@ -1,0 +1,7 @@
+.form-range::-webkit-slider-thumb {
+    background-color: #198754;
+}
+
+.form-range::-moz-range-thumb {
+    background-color: #28a745;
+}

@@ -41,53 +41,51 @@
             <form [formGroup]="collectionsForm" (submit)="onSelect()">
                 <div class="text-end m-2 mt-5">
                     <button type="submit" class="btn btn-success btn-sm ms-4" data-bs-toggle="modal"
-                        data-bs-target="#collectionsMultiple" [disabled]=collectionsForm.invalid title="add multiple movies to collection"> Add to
+                        data-bs-target="#collectionsMultiple" [disabled]=collectionsForm.invalid
+                        title="add multiple movies to collection"> Add to
                         collection</button>
                     <app-multiple-ids-popup [idArray]="selectedMoviesId" />
                 </div>
                 <div class="row card-container">
                     <div class="col-3 m-3 mx-auto text-center" *ngFor="let movie of searchMovies.results">
-                        <div class="card h-100">
-                            <div>
-                                <img [src]='"https://image.tmdb.org/t/p/w300"+(movie.poster_path)'
-                                    onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
-                                    alt="{{ movie.title }} poster path" placeholder (click)="moviePage(movie.id)"
-                                    title="click for details">
-                            </div>
-                            <div class="form-check m-2"
-                                style="display: flex; flex-direction: row; justify-content:flex-end;">
-                                <input class="form-check-input" formControlName="movieChecked" type="checkbox"
-                                    [value]="movie.id" id="movieChecked-{{movie.id}}" (change)="onChange($event)" title="select to add to collection">
-                                <label class="form-check-label text-success" for="movieChecked-{{movie.id}}">
-                                    Add to collection
-                                </label>
-                            </div>
-                            <div style="display: flex; flex-direction: row; justify-content:flex-end;">
-                                <button class="btn btn-sm btn-success col-sm-2 me-1 mt-1" type="button"
-                                    data-bs-toggle="modal" data-bs-target="#collections"
-                                    (click)="addToCollection(movie.id)" title="add to collection"><i class="bi bi-bookmark-plus"></i></button>
-                                <app-collections-popup [id]="selectedId" />
-                            </div>
-                            <div class="card-body"
-                                style="display: flex; flex-direction: column; justify-content:space-between;">
-                                <div class="mb-3">
-                                    <h5 class="card-title text-success fw-bold">{{ movie.title }}</h5>
-                                    <p class="card-text "><span class="text-success">Average vote :</span>
-                                        {{movie.vote_average}}</p>
-                                </div>
+                        <div class="card h-100"
+                            style="display:flex; flex-direction: column;justify-content: space-between;">
+                            <div (click)="moviePage(movie.id)" title="click for details">
                                 <div>
-                                    <!-- <button class="btn btn-sm btn-success" type="button" data-bs-toggle="modal" 
-                                                                    data-bs-target="#movieDetails" (click)="onMovieClick(movie.id)">{{ movie.title }}</button>
-                                                                <app-movie-details [id]="selectedId" /> -->
-                                    <!-- option 1 routes -->
-                                    <!-- <a  [routerLink]="(movie.id)">Show modal</a> -->
-                                    <!-- option 2 routes -->
-                                    <!-- <a class="link-success link-offset-1 link-offset-2-hover link-underline-opacity-75 link-underline-opacity-100-hover" [routerLink]="(movie.id)+'/movies'">Show modal</a> -->
-                                    <button class="btn btn-sm col-sm-12 btn-success" type="button"
-                                        (click)="onMovieClick(movie.id)">{{
-                                        movie.title }}</button>
-                                    <!-- <router-outlet /> -->
+                                    <img [src]='"https://image.tmdb.org/t/p/w300"+(movie.poster_path)'
+                                        onerror="this.src='../assets/images/no-poster.png';" class="card-img-top"
+                                        alt="{{ movie.title }} poster path" placeholder>
                                 </div>
+                                <div class="form-check m-2"
+                                    style="display: flex; flex-direction: row; justify-content:flex-end;">
+                                    <input class="form-check-input" formControlName="movieChecked" type="checkbox"
+                                        [value]="movie.id" id="movieChecked-{{movie.id}}" (change)="onChange($event)"
+                                        title="select to add to collection">
+                                    <label class="form-check-label text-success" for="movieChecked-{{movie.id}}">
+                                        Add to collection
+                                    </label>
+                                </div>
+                                <div style="display: flex; flex-direction: row; justify-content:flex-end;">
+                                    <button class="btn btn-sm btn-success col-sm-2 me-1 mt-1" type="button"
+                                        data-bs-toggle="modal" data-bs-target="#collections"
+                                        (click)="addToCollection(movie.id)" title="add to collection"><i
+                                            class="bi bi-bookmark-plus"></i></button>
+                                    <app-collections-popup [id]="selectedId" />
+                                </div>
+                                <div class="card-body"
+                                    style="display: flex; flex-direction: column; justify-content:space-between;">
+                                    <div>
+                                        <h5 class="card-title text-success fw-bold">{{ movie.title }}</h5>
+                                        <p class="card-text "><span class="text-success">Average vote :</span>
+                                            {{movie.vote_average}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="btn btn-sm col-sm-12 btn-success" type="button"
+                                    (click)="onMovieClick(movie.id)" title="more infos popup">Quick look {{
+                                    movie.title }}</button>
+                                <router-outlet />
                             </div>
                         </div>
                     </div>
