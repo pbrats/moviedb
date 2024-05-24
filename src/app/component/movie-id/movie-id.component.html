@@ -1,7 +1,7 @@
 @if(movieDetails){
 @if(hasLoadedmovie){
 <div class="container my-5 ">
-    <h1 class="text-center text-success m-5 pb-5 pt-2">{{ movieDetails.original_title }}</h1>
+    <h1 class="text-center fw-bold text-success m-5 pb-5 pt-2">{{ movieDetails.original_title }}</h1>
     <div class="my-5" style="display:flex; flex-direction: row; justify-content:space-between;">
         <div class="mx-5">
             <img [src]='"https://image.tmdb.org/t/p/w300"+(movieDetails.poster_path)'

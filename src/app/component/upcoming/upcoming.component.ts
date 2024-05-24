@@ -14,7 +14,7 @@ import { MoviesService } from '../../service/movies.service';
 export class UpcomingComponent {
   hasLoadedUpcoming: boolean = false;
   upcoming: any;
-  region!: string;
+  region: string ='gr';
   selectForm!: FormGroup;
   totalPages = 0; // total pages of the data from API
   currentPage = 1; // set initial page the 1st
@@ -27,7 +27,9 @@ export class UpcomingComponent {
     this.activatedRoute.queryParams.subscribe(
       (params: any) => {
         console.log("params:", params);
-        this.region = params['region'];
+        if(params['region']!==undefined){
+          this.region = params['region'];
+        }
         console.log("this region:", this.region);
       });
       this.selectForm = this.formBuilder.group({

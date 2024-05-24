@@ -14,7 +14,7 @@ import { MoviesService } from '../../service/movies.service';
 export class TrendingComponent {
   hasLoadedTrending: boolean = false;
   trending: any;
-  time!: string;
+  time: string = 'day';
   timeForm!: FormGroup;
   totalPages = 0; // total pages of the data from API
   currentPage = 1; // set initial page the 1st
@@ -29,7 +29,9 @@ export class TrendingComponent {
     this.activatedRoute.queryParams.subscribe(
       (params: any) => {
         console.log("params:", params);
-        this.time = params['time'];
+        if(params['time']!==undefined){
+          this.time = params['time'];
+        }
         console.log("this time:", this.time);
         if(this.time=='day'){
           this.buttonDay = true;
