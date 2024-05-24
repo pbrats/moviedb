@@ -4,11 +4,12 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MoviesService } from '../../service/movies.service';
 import { CollectionsPopupComponent } from '../collections-popup/collections-popup.component';
+import { MultipleIdsPopupComponent } from '../multiple-ids-popup/multiple-ids-popup.component';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, RouterLinkActive, CollectionsPopupComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, RouterLinkActive, CollectionsPopupComponent, MultipleIdsPopupComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
@@ -57,7 +58,6 @@ export class SearchComponent {
       console.log("selectedMoviesId:", this.selectedMoviesId);
       this.collectionsForm.reset();
     }
-
   }
   onChange(event: any) {
     console.log("selected movies ids length:", this.selectedMoviesId.length);

@@ -44,7 +44,7 @@
                         <div style="display: flex; flex-direction: row; justify-content:flex-end;">
                             <button class="btn btn-sm btn-success col-sm-2 me-1 mt-1" type="button"
                                 data-bs-toggle="modal" data-bs-target="#collections"
-                                (click)="addToCollection(nowMovie.id)"><i class="bi bi-bookmark-plus"></i></button>
+                                (click)="addToCollection(nowMovie.id)" title="add to collection"><i class="bi bi-bookmark-plus"></i></button>
                             <app-collections-popup [id]="selectedId" />
                         </div>
                     </div>

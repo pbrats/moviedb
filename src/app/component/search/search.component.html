@@ -41,9 +41,9 @@
             <form [formGroup]="collectionsForm" (submit)="onSelect()">
                 <div class="text-end m-2 mt-5">
                     <button type="submit" class="btn btn-success btn-sm ms-4" data-bs-toggle="modal"
-                        data-bs-target="#collectionsMultiple" [disabled]=collectionsForm.invalid> Add to
+                        data-bs-target="#collectionsMultiple" [disabled]=collectionsForm.invalid title="add multiple movies to collection"> Add to
                         collection</button>
-                    <!-- <app-multiple-ids-popup [idArray]="selectedMoviesId" /> -->
+                    <app-multiple-ids-popup [idArray]="selectedMoviesId" />
                 </div>
                 <div class="row card-container">
                     <div class="col-3 m-3 mx-auto text-center" *ngFor="let movie of searchMovies.results">
@@ -57,7 +57,7 @@
                             <div class="form-check m-2"
                                 style="display: flex; flex-direction: row; justify-content:flex-end;">
                                 <input class="form-check-input" formControlName="movieChecked" type="checkbox"
-                                    [value]="movie.id" id="movieChecked-{{movie.id}}" (change)="onChange($event)">
+                                    [value]="movie.id" id="movieChecked-{{movie.id}}" (change)="onChange($event)" title="select to add to collection">
                                 <label class="form-check-label text-success" for="movieChecked-{{movie.id}}">
                                     Add to collection
                                 </label>
@@ -65,7 +65,7 @@
                             <div style="display: flex; flex-direction: row; justify-content:flex-end;">
                                 <button class="btn btn-sm btn-success col-sm-2 me-1 mt-1" type="button"
                                     data-bs-toggle="modal" data-bs-target="#collections"
-                                    (click)="addToCollection(movie.id)"><i class="bi bi-bookmark-plus"></i></button>
+                                    (click)="addToCollection(movie.id)" title="add to collection"><i class="bi bi-bookmark-plus"></i></button>
                                 <app-collections-popup [id]="selectedId" />
                             </div>
                             <div class="card-body"
