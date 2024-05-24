@@ -12,6 +12,7 @@ import { CollectionsComponent } from './component/collections/collections.compon
 import { CreateCollectionComponent } from './component/create-collection/create-collection.component';
 import { CollectionDetailsComponent } from './component/collection-details/collection-details.component';
 import { RatedMoviesComponent } from './component/rated-movies/rated-movies.component';
+import { NotFoundComponent } from './component/not-found/not-found.component';
 
 export const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full" },
@@ -28,5 +29,7 @@ export const routes: Routes = [
     { path: "collections/create", component: CreateCollectionComponent },
     { path: "collections/rated", component: RatedMoviesComponent },
     { path: "collections/:title", component: CollectionDetailsComponent },
+    { path: "not-found", component: NotFoundComponent},
+    { path: "**", component: NotFoundComponent }
 
 ];
