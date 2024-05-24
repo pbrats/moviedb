@@ -33,6 +33,16 @@
                     </ul>
                 </div>
             </div>
+            <div class="card border-light mb-3 mx-2 text-center mx-auto" style="max-width: 15rem;">
+                <div class="card-header fst-italic fw-bold text-success">Production Countries</div>
+                <div class="card-body">
+                    <ul *ngFor="let country of movieDetails.production_countries">
+                        <li>
+                            <p class="card-text">{{ country.name }}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
         <div class="mx-auto text-center" style="min-height: max-content;">
             <div class="card text-bg-light mb-5">
@@ -48,6 +58,38 @@
                             class="link link-underline-success link-offset-2 link-offset-3-hover"> {{
                             movieDetails.homepage}}</a></p>
                 </div>
+            </div>
+            <div class="rating my-5 card text-bg-light border-success col-sm-8 mx-auto">
+                <div class="card-header fst-italic fw-bold text-success text-center">
+                    <label for="rating" class="form-label fs-5">Rate this movie
+                    </label>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="ratingForm" (submit)="onSubmit()">
+                        <div class="my-2 d-flex mx-auto col-sm-8">
+                            <p class="badge bg-secondary">0</p>
+                            <input type="range" formControlName="rating" class="form-range mx-2" min="0.5" max="10"
+                                step="0.5" id="rating">
+                            @if(!ratingForm.get('rating')?.value){
+                            <p class="badge bg-secondary">10 <i class="bi bi-star-fill"></i></p>
+                            }
+                            @if(ratingForm.get('rating')?.value){
+                            <p class="badge bg-secondary"> {{ ratingForm.get('rating')?.value }} <i
+                                    class="bi bi-star-fill"></i></p>
+                            }
+                        </div>
+                        <button type="submit" class="btn btn-success d-flex mx-auto" [disabled]=ratingForm.invalid>
+                            Submit
+                            rate</button>
+                    </form>
+                </div>
+                @if(showSuccessMessage){
+                <div class="alert alert-success alert-dismissible my-3 mx-auto" role="alert" style="width:fit-content">
+                    <h4 class="text-success">{{response.status_message}}</h4>
+                    <div><i class="bi bi-check-circle-fill mx-2"></i>Your rating was successfully submitted!</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                }
             </div>
             <div class="row justify-content-center">
                 <div class="card border-light mb-3 mx-2" style="max-width: 12rem;">
@@ -94,7 +136,7 @@
                     </div>
                 </div>
                 }
-                <div class="card border-light mb-3 mx-2" style="max-width: fit-content;">
+                <div class="card border-light mb-3 mx-2" style="min-width: fit-content;">
                     <div class="card-header fst-italic fw-bold text-success">Production Companies</div>
                     <div class="card-body">
                         <ul class="d-flex flex-column align-self-center"
@@ -108,48 +150,9 @@
                         </ul>
                     </div>
                 </div>
-                <div class="card border-light mb-3 mx-2" style="max-width: 12rem;">
-                    <div class="card-header fst-italic fw-bold text-success">Production Countries</div>
-                    <div class="card-body">
-                        <ul *ngFor="let country of movieDetails.production_countries">
-                            <li>
-                                <p class="card-text">{{ country.name }}</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+
             </div>
         </div>
-    </div>
-    <div class="rating my-5 card border-success col-sm-6 mx-auto">
-        <div class="card-header fst-italic fw-bold text-success text-center">
-            <label for="rating" class="form-label fs-5">Rate this movie
-            </label>
-        </div>
-        <div class="card-body">
-            <form [formGroup]="ratingForm" (submit)="onSubmit()">
-                <div class="my-5 d-flex mx-auto col-sm-8">
-                    <p class="badge bg-secondary">0</p>
-                    <input type="range" formControlName="rating" class="form-range mx-2" min="0.5" max="10" step="0.5"
-                        id="rating">
-                    @if(!ratingForm.get('rating')?.value){
-                    <p class="badge bg-secondary">10</p>
-                    }
-                    @if(ratingForm.get('rating')?.value){
-                    <p class="badge bg-secondary"> {{ ratingForm.get('rating')?.value }} </p>
-                    }
-                </div>
-                <button type="submit" class="btn btn-success d-flex mx-auto" [disabled]=ratingForm.invalid> Submit
-                    rate</button>
-            </form>
-        </div>
-        @if(showSuccessMessage){
-        <div class="alert alert-success alert-dismissible my-3 mx-auto" role="alert" style="width:fit-content">
-            <h4 class="text-success">{{response.status_message}}</h4>
-            <div><i class="bi bi-check-circle-fill mx-2"></i>Your rating was successfully submitted!</div>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        }
     </div>
 </div>
 }@else{
