@@ -46,7 +46,8 @@
                         <div class="row mx-auto my-2">
                             <ul class="col " *ngFor="let collection of collections">
                                 <div class="col-sm-4 ">
-                                    <div class="card m-3" style="width:150px;height:fit-content">
+                                    <div class="card m-3" style="width:150px;height:fit-content" (click)="addToCollection(collection.title)"
+                                    title="add to collection">
                                         <div class="card-body"
                                             style="display: flex; flex-direction: column; justify-content:space-between">
                                             <div class="">
@@ -56,8 +57,8 @@
                                             </div>
                                             <div class="text-end">
                                                 <button class="btn btn-sm btn-success"
-                                                    (click)="addToCollection(collection.title)" title="add to collection"><i
-                                                        class="bi bi-plus-lg"></i></button>
+                                                    (click)="addToCollection(collection.title)"
+                                                    title="add to collection"><i class="bi bi-plus-lg"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -67,6 +68,23 @@
                         }@else{
                         <div class="container my-5">
                             <h4 class="text-danger fst-italic">No available Collections!</h4>
+                            <div class="card my-5 bg-light border rounded border-success border-3 mx-auto"
+                                style="width:fit-content;height:fit-content" routerLink="/collections/create"
+                                routerLinkActive="active" data-bs-dismiss="modal" title="create new collection">
+                                <div class="card-body"
+                                    style="display: flex; flex-direction: column; justify-content:space-between">
+                                    <div class="">
+                                        <h5 class="card-title text-success fw-bold pb-3">Create Collection</h5>
+                                        <p class="card-text text-center text-muted">Create a new collection to add your
+                                            movies!</p>
+                                    </div>
+                                    <div class="text-end mt-2">
+                                        <button class="btn btn-sm btn-success" routerLink="/collections/create"
+                                            routerLinkActive="active" data-bs-dismiss="modal"><i
+                                                class="bi bi-plus-lg"></i></button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         }
                     </div>

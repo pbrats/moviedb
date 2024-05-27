@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { MoviesService } from '../../service/movies.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-collections-popup',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink ],
   templateUrl: './collections-popup.component.html',
   styleUrl: './collections-popup.component.css'
 })
