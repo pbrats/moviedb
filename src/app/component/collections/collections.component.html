@@ -2,8 +2,29 @@
     @if(collections !!!= undefined ){
     @if(collections.length >0){
     <div class="text-end">
-        <button class="btn btn-sm btn-danger" (click)="deleteCollections()"> Delete all collections <i
-                class="bi bi-trash-fill ms-1"></i></button>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAll">
+            Delete all collections <i class="bi bi-trash-fill ms-1"></i>
+        </button>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteAll" tabindex="-1" aria-labelledby="deleteAll" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger bg-opacity-25">
+                    <h1 class="modal-title fs-5" id="deleteAll">Confirmation</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center bg-danger bg-opacity-25">
+                    <h4 class="m-3">Are you sure you want to delete ALL Collections?</h4>
+                </div>
+                <div class="modal-footer bg-danger bg-opacity-25"
+                    style="display: flex; flex-direction: row; justify-content:space-around">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+                    <button type="button" class="btn btn-danger" (click)="deleteCollections()">YES</button>
+                </div>
+            </div>
+        </div>
     </div>
     }
     }
