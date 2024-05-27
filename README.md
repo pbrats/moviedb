@@ -1,12 +1,16 @@
 # Moviedb
 
-The purpose of this project is to search, display and categorize movies into user defined collections.
+The purpose of this project is to browse, search, display and categorize movies into User-defined collections. 
+
+Users can browse Popular, Trending, Upcoming ,Top Rated, Now Playing, and Movies categorized by Genre, obtaining a paginated list of movies for each category along with their details (title/poster/rating). They can also select the region of interest for Upcoming and Now Playing movies to display the corresponding results. 
+
+By selecting a movie card from the lists, the Movie Details Full Page opens, displaying detailed information about the selected movie. On the Movie Details Page, there is also an option to rate the selected movie and add it to a collection in the custom collections popup.
 
 The user can search by a validated keyword for movies by their original, translated and alternative titles and get the paginated results list of movies, along with their details (title/poster/rating). 
 
-Selecting a movie from the results, the Movie Details Page opens in a popup and more information about the selected movie are displayed. At Movie Details Page there is also option to rate the selected movie. 
+By selecting a movie card from the search results, the Movie Details Full Page opens, displaying detailed information about the selected movie. On the Movie Details Page, there is also an option to rate the selected movie and add it to a collection in the custom collections popup. Additionally, there is also a Quick Look Button option that opens a popup with some information about the selected movie and also provides the rating option.
 
-The user can select a movie and then select a collection to add it to, from the custom collections list that appears in a pop up. 
+Users can select a movie and then choose a collection to add it to from a custom collections list that appears in a pop up. There is also the option to add multiple movies at once to a custom collection from the available ones.
 
 The custom collections can be created by the user using a title and a short description for every collection. 
 
